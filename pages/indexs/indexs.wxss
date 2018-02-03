@@ -1,0 +1,16 @@
+/* pages/indexs/indexs.wxss */
+button.submit{
+  background-color: #c5e4ff;
+}
+.checkBox view image{
+    width: 60rpx;
+    height: 60rpx;
+} 
+.checkBox view{
+  display: inline-block;
+  width: 49%;
+}
+.checkBox view.one{
+    display: flex;
+    justify-content: space-between;
+}

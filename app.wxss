@@ -1,0 +1,24 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+button:after{
+    content: none;
+}
+button{
+  padding: 0!important;
+  margin: 0!important;
+  line-height: inherit;
+  background-color:#fff;
+
+}
+.button-hover{
+  background-color: inherit!important;
+  color: inherit;
+}
