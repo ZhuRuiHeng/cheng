@@ -1,0 +1,43 @@
+<!--pages/mine/mine.wxml-->
+<view class="container">
+    <view class='header'>
+        <view class='title'>
+            <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/logo.png" mode='widthFix'></image>
+            <image class='text' src="http://ovhvevt35.bkt.clouddn.com/chengyu/zhihu.png" mode='widthFix'></image>
+        </view>
+        <view class='time'>2017年12月30日-2018年1月30日</view>
+        <view class='inform'>
+              <view class='left'>
+                  <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>{{userInfo.gender}}
+              </view>
+              <!--好友前4名  -->
+              <view class='right'>
+                  <image wx:for="{{friendsList}}" wx:key="{{index}}" src="{{item}}" mode='widthFix'></image>
+              </view>
+        </view>
+    </view>
+    <view class='list' wx:if="{{list}}">
+        <view class='item {{index == 0?"first":""}}' wx:for="{{list}}" wx:key="{{index}}">
+            <view class='left'>
+                <view  class='niceImg'><image src="{{item.avatarurl}}" mode='widthFix'></image></view>
+                <view class='inform'>
+                    <view class='niceImg'>{{item.wx_name}}</view>
+                    <view class='jifen'>
+                          奖金:{{item.guess_music_point}}
+                    </view>
+                </view>
+            </view>
+            <view class='right'>
+                  <image wx:for="{{index+1}}" wx:key="{{index}}" 
+                         src="http://ovhvevt35.bkt.clouddn.com/chengyu/star.png" mode='widthFix'></image>
+            </view>
+        </view>
+    </view>
+    <!--待解锁  -->
+    <view class='jiesuo'>
+        <view class='rol'></view>
+        <view class='rol'></view>
+        <view class='rol'></view>
+        <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/suo.png" mode='widthFix'></image>
+    </view>
+</view>

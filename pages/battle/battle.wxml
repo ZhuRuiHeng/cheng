@@ -1,0 +1,12 @@
+<!--pages/battle/battle.wxml-->
+<view class="container">
+    <view class='wait'>
+    <!-- http://p1jrmxejh.bkt.clouddn.com/chengyu/rol.gif -->
+        <image class='waitImg' src="http://p1jrmxejh.bkt.clouddn.com/chengyu/rol.gif" mode='widthFix'></image>
+        <image class='niceImg' src="{{userInfo.avatarUrl}}" mode='widthFix'></image>
+    </view>
+    <view class='inform'>
+        <view class='name'>{{userInfo.nickName}}</view>
+        <view class='money'>入场费：<image src="../image/8.png" mode="widthFix"></image>111</view>
+      </view>
+</view>

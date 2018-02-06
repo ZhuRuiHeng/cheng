@@ -1,0 +1,43 @@
+<!--pages/wait/wait.wxml-->
+<view class="container">
+    <view class='header'>
+        <view class='left public'>
+            <view class='leftBg bg'>
+                  <image src="{{userInfo.avatarUrl}}" mode='widthFix'></image>
+            </view>
+        </view>
+        <view class='leftInform inform'>
+            <view class='text name'>{{userInfo.nickName}}</view>
+            <view class='text little'>来自：{{userInfo.province}}</view>
+        </view> 
+        <view class='right public'>
+            <view class='rightBg bg'>
+                  <image src="{{userInfo.avatarUrl}}" mode='widthFix'></image>
+            </view>
+        </view>
+        <view class='rightInform inform'>
+            <view class='text name'>{{userInfo.nickName}}</view>
+            <view class='text little'>来自：{{userInfo.province}}</view>
+        </view> 
+    </view>
+     {{socktBtnTitle}}
+     <view class='foot'>
+        <view class='button'>
+            <view class='star'>
+              <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
+                  <button formType="submit" class="submit" style='border-radius:0'>
+                      开始
+                  </button>
+              </form>
+            </view>
+            <view class='out'>
+              <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
+                  <button formType="submit" class="submit" style='border-radius:0'>
+                      退出
+                  </button>
+              </form>
+            </view>
+        </view>
+         <view class='color'>成语挑战,共5题,每题20秒时间</view>
+    </view>
+</view>
