@@ -53,6 +53,29 @@ Page({
               }
             }
           })
+          // 金币基本信息
+          wx.request({
+            url: app.data.apiurl + "guessipk/user-point?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+            data: {
+              guess_type: 'idiom'
+            },
+            header: {
+              'content-type': 'application/json'
+            },
+            method: "GET",
+            success: function (res) {
+              console.log("金币基本信息:", res);
+              var status = res.data.status;
+              if (status == 1) {
+                wx.setStorageSync('allPoint', res.data.data);
+                that.setData({
+                  allPoint: res.data.data
+                })
+              } else {
+                console.log(res.data.msg)
+              }
+            }
+          })
         });
     }else{
       wx.request({
@@ -105,6 +128,29 @@ Page({
                 inter
               })
             }, 1000)
+          } else {
+            console.log(res.data.msg)
+          }
+        }
+      })
+      // 金币基本信息
+      wx.request({
+        url: app.data.apiurl + "guessipk/user-point?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+        data: {
+          guess_type: 'idiom'
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("金币基本信息:", res);
+          var status = res.data.status;
+          if (status == 1) {
+            wx.setStorageSync('allPoint', res.data.data);
+            that.setData({
+              allPoint: res.data.data
+            })
           } else {
             console.log(res.data.msg)
           }
@@ -286,6 +332,9 @@ Page({
       wx.navigateTo({
         url: '../mine/mine',
       })
+  },
+  hepulan(){
+    util.jump()
   },
   // 分享
   onShareAppMessage: function (res) {

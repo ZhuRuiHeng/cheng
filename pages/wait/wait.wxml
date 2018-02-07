@@ -29,6 +29,7 @@
                   </button>
               </form>
             </view>
+            {{inform}}
             <view class='out'>
               <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
                   <button formType="submit" class="submit" style='border-radius:0'>

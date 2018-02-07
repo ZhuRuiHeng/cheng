@@ -7,7 +7,10 @@ Page({
     userInfo: wx.getStorageSync('userInfo'),
   },
   onLoad: function (options) {
-  
+    console.log('options:', options);
+      this.setData({
+        usepoint: options.usepoint
+      })
   },
   onReady: function () {
   
@@ -17,6 +20,9 @@ Page({
       that.setData({
         userInfo: wx.getStorageSync('userInfo'),
       })
+      setTimeout(function(){
+            
+      },1000)
   },
 
 

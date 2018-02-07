@@ -8,7 +8,7 @@ page{
     background: #2f7ee7;
     color: #ffffff;
     text-align: center;
-    height: 280rpx;
+    height: 220rpx;
     width: 96%;
     margin: 0 auto;
     border-radius: 20rpx;
@@ -28,7 +28,12 @@ page{
   display: flex;
   justify-content: space-between;
   height: 80rpx;
-  padding: 0 20rpx;
+  line-height: 80rpx;
+  padding: 20rpx;
+}
+.header .inform .left image{
+  position: relative;
+  top: -2rpx;
 }
 .header .inform view{
   display: block;

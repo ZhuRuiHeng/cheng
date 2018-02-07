@@ -5,10 +5,10 @@
             <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/logo.png" mode='widthFix'></image>
             <image class='text' src="http://ovhvevt35.bkt.clouddn.com/chengyu/zhihu.png" mode='widthFix'></image>
         </view>
-        <view class='time'>2017年12月30日-2018年1月30日</view>
+        <!-- <view class='time'>2017年12月30日-2018年1月30日</view> -->
         <view class='inform'>
               <view class='left'>
-                  <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>{{userInfo.gender}}
+                  <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>{{allPoint.user_point}}
               </view>
               <!--好友前4名  -->
               <view class='right'>
@@ -18,7 +18,7 @@
     </view>
     <view class='list' wx:if="{{list}}">
         <view class='item {{index == 0?"first":""}}' wx:for="{{list}}" wx:key="{{index}}" 
-              bindtap='unlockTap' data-num='{{index}}' data-unlock='{{item.unlock}}'>
+              bindtap='unlockTap' data-num='{{index}}' data-unlock='{{item.unlock}}' data-usepoint='{{item.use_point}}'>
             <view class='bgColor' wx:if="{{item.unlock==false}}"></view>
             <view class='left'>
                 <view  class='niceImg'><image src="{{userInfo.avatarUrl}}" mode='widthFix'></image></view>

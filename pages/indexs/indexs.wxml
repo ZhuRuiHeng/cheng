@@ -21,7 +21,8 @@
                           <!--time  -->
                           <view class='bankAll'>
                                 <view class='gold'>
-                                    <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>60
+                                    <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>
+                                    {{allPoint.bank_point}}
                                 </view>
                                 <view class='line'>
                                     <view class='bgColor' style='width:{{width}}rpx'></view>
@@ -57,7 +58,7 @@
                 <view class='nickName'>{{userInfo.nickName}}</view>
                 <view class='jinbi'>
                     <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>
-                    {{point}}
+                    {{allPoint.user_point}}
                 </view>
             </view>
         </view>
@@ -87,7 +88,10 @@
            银行
         </view>
         <view class='title'>
-            +60 <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>
+            +{{allPoint.bank_point}}<image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>
         </view>
     </view>
+</view>
+<view class='adver' bindtap='hepulan'>
+    <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/honbao.gif" mode='aspectFill'></image>
 </view>

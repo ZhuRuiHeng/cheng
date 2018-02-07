@@ -7,6 +7,8 @@
     </view>
     <view class='inform'>
         <view class='name'>{{userInfo.nickName}}</view>
-        <view class='money'>入场费：<image src="../image/8.png" mode="widthFix"></image>111</view>
+        <view class='money'>入场费：<image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode="widthFix"></image>
+          <text class='fen'>{{usepoint}}</text>
+        </view>
       </view>
 </view>

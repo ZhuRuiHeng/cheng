@@ -8,8 +8,9 @@ page{
   text-align: center;
   position: relative;
 }
-.waitImg{
-    
+image.waitImg{
+    width: 90%;
+    height: 350rpx; 
 }
 .wait image.niceImg{
     width: 120rpx;
@@ -40,4 +41,12 @@ page{
 }
 .inform .money{
     font-size: 26rpx;
+    vertical-align: middle;
+    height: 40rpx;
+    line-height: 40rpx;
+}
+.money .fen{
+    position: relative;
+    top: 6rpx;
+    left: 10rpx;
 }

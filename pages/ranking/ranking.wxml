@@ -37,10 +37,11 @@
         <view class='fixed'>
             <button open-type='share'>去其它群VS</button> 
             <view class='share'>
-                <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/bei.png" mode='widthFix'></image>我的排名：xxx
+                <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/bei.png" mode='widthFix'></image>我的排名：{{mine}}
             </view>
             <view class='share' style='padding-bottom:20rpx;'>
-                <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/share.png" mode='widthFix'></image>分享微信群可得+50金币
+                <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/share.png" mode='widthFix'></image>分享微信群可得+
+                {{allPoint.share_point}}金币
             </view>
         </view>
    </button>

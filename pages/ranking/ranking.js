@@ -18,6 +18,9 @@ Page({
   },
   onShow: function () {
       let that = this;
+      that.setData({
+        allPoint: wx.getStorageSync('allPoint')
+      })
       wx.request({
         url: app.data.apiurl + "guessipk/rank?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
         data: {
@@ -35,6 +38,29 @@ Page({
           if (status == 1) {
             that.setData({
               list: res.data.data
+            })
+          } else {
+            console.log(res.data.msg)
+          }
+        }
+      })
+      // 我的排名
+      wx.request({
+        url: app.data.apiurl + "guessipk/my-rank?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+        data: {
+          type: that.data.type,
+          guess_type: 'idiom'
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("我的排名:", res);
+          var status = res.data.status;
+          if (status == 1) {
+            that.setData({
+              mine: res.data.data
             })
           } else {
             console.log(res.data.msg)
@@ -64,6 +90,29 @@ Page({
         if (status == 1) {
           that.setData({
             list: res.data.data
+          })
+        } else {
+          console.log(res.data.msg)
+        }
+      }
+    })
+    // 我的排名
+    wx.request({
+      url: app.data.apiurl + "guessipk/my-rank?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+      data: {
+        type: that.data.type,
+        guess_type: 'idiom'
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET",
+      success: function (res) {
+        console.log("我的排名:", res);
+        var status = res.data.status;
+        if (status == 1) {
+          that.setData({
+            mine: res.data.data
           })
         } else {
           console.log(res.data.msg)
@@ -172,10 +221,10 @@ Page({
                   var status = res.data.status;
                   if (status == 1) {
                     that.setData({
-                      point : res.data.data.point + 50
+                      point: res.data.data.point + that.data.allPoint.share_point 
                     })
-                    wx.setStorageSync('point', res.data.data.point + 50)
-                    tips.success('积分+50');
+                    wx.setStorageSync('point', res.data.data.point + that.data.allPoint.share_point)
+                    tips.success('积分+' + that.data.allPoint.share_point);
                   } else {
                     //console.log(res.data.msg)
                     //tips.error(res.data.msg)

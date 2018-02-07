@@ -22,6 +22,7 @@ Page({
     let that = this;
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
+      allPoint: wx.getStorageSync('allPoint')
     })
     wx.request({
       url: app.data.apiurl + "guessipk/toll-gate?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
@@ -50,28 +51,33 @@ Page({
     let that = this;
     let num = e.currentTarget.dataset.num;
     let unlock = e.currentTarget.dataset.unlock;
-    wx.request({
-      url: app.data.apiurl + "guessipk/unlock-gate?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
-      data: {
-        guess_type: 'idiom',
-        num: num
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      method: "GET",
-      success: function (res) {
-        console.log("排位关卡:", res);
-        var status = res.data.status;
-        if (status == 1) {
-          that.setData({
-            list: res.data.data
+    let usepoint = e.currentTarget.dataset.usepoint;
+    if (unlock==true){
+          wx.navigateTo({
+            url: '../battle/battle?usepoint=' + usepoint,
           })
-        } else {
-          tips.alert(res.data.msg);
+    }else{
+      wx.request({
+        url: app.data.apiurl + "guessipk/unlock-gate?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+        data: {
+          guess_type: 'idiom',
+          num: num
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("解锁:", res);
+          var status = res.data.status;
+          if (status == 1) {
+            
+          } else {
+            tips.alert(res.data.msg);
+          }
         }
-      }
-    })
+      })
+    }
   }
 
 
