@@ -15,7 +15,7 @@ Page({
     second:'00',
     width:60,
     socktBtnTitle: '连接socket',
-    music: true
+    music: false
   },
   onLoad: function (options) {
     let that = this;
@@ -29,6 +29,10 @@ Page({
       app.AppMusic.stop();
       app.AppMusic.onPause(() => {
         console.log('暂停播放');
+      })
+    }else{
+      that.setData({
+        music: true
       })
     }
     app.getAuth(function () {

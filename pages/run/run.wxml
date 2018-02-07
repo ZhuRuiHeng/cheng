@@ -19,17 +19,21 @@
         <view class='left'></view>
         <view class='right'></view>
     </view>
-    <view class='num'>第{{index}}题</view>
+    <view class='num'>第{{num}}题</view>
     <view class='idiom'>
         <view>四字成语</view>
     </view>
     <view class='caiImg' style='background: url({{question_list.thumb}});'></view>
     <view class='answer'>
-        <view class='item'  bindtap='pushAnswer' wx:for="{{answer}}" wx:key="{{index}}">{{item}}</view>
+        <view class='item'  bindtap='backText' wx:for="{{answer}}" wx:key="{{index}}" data-index="{{index}}"
+              data-askindex="{{item.askindex}}" data-text="{{item.text}}">
+            <text class="{{item.text==0?'hide':''}}">{{item.text}}</text>
+        </view>
     </view>
     <view class='option'>
-        <view class='item' bindtap='' wx:for="{{option}}" wx:key="{{index}}" data-index='{{index}}'>
-            {{item}}
+        <view class='item' bindtap='checked' wx:for="{{option}}" wx:key="{{index}}" 
+              data-index='{{index}}' data-text="{{item}}">
+            <text class="{{item==0?'hide':''}}">{{item}}</text>
         </view>
     </view>
 </view>

@@ -18,6 +18,8 @@ Page({
       room_id: options.room_id,
       otherName: options.otherName,
       otherImg: options.otherImg,
+      houseImg: options.otherImg,
+      houseName:options.otherName,
     })
     wx.setStorageSync('otherName', options.otherName);
     wx.setStorageSync('otherImg', options.otherImg);
@@ -136,19 +138,15 @@ Page({
                             console.log(result.member_info);
                             if (result.member_info[0].mid == wx.getStorageSync('mid')) {  //myself
                               that.setData({
-                                otherImg: result.member_info[0].avatarurl,
-                                otherName: result.member_info[0].wx_name,
-                                houseImg: result.member_info[1].avatarUrl,
-                                houseName: result.member_info[1].nickName
+                                otherImg1: result.member_info[0].avatarurl,
+                                otherName1: result.member_info[0].wx_name,
                               })
                               wx.setStorageSync('otherName', result.member_info[0].avatarurl);
                               wx.setStorageSync('otherImg', result.member_info[0].wx_name);
                             } else { //other别人
                               that.setData({
-                                otherImg: result.member_info[1].avatarurl,
-                                otherName: result.member_info[1].wx_name,
-                                houseImg: result.member_info[0].avatarUrl,
-                                houseName: result.member_info[0].nickName
+                                otherImg1: result.member_info[1].avatarurl,
+                                otherName1: result.member_info[1].wx_name,
                               })
                               wx.setStorageSync('otherName', result.member_info[1].avatarurl);
                               wx.setStorageSync('otherImg', result.member_info[1].wx_name);
@@ -157,9 +155,10 @@ Page({
                           if (result.status == 1 && result.question_list) {
                             wx.setStorageSync('question_list', result.question_list)
                             wx.navigateTo({
-                              url: '../run/run?question_list=' + result.question_list + '&otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName,
+                              url: '../run/run?question_list=' + result.question_list + '&otherImg=' + that.data.otherImg1 + '&otherName=' + that.data.otherName1 + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName,
                             })
-                          } else if (result.status == 0) {
+                          }
+                          if (result.status == 0) {
                             tips.alert(result.msg)
                           }
                         })

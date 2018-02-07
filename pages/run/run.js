@@ -6,8 +6,30 @@ Page({
   data: {
     userInfo: wx.getStorageSync('userInfo'),
     second:20,
-    answer: ['', '', '', ''],
-    index:1 //题目
+    click:0, //点击多少下
+    answer: [
+      {
+        text:0,
+        askindex:-1,
+        notice:false
+      },
+      {
+        text: 0,
+        askindex: -1,
+        notice: false
+      },
+      {
+        text: 0,
+        askindex: -1,
+        notice: false
+      },
+      {
+        text: 0,
+        askindex: -1,
+        notice: false
+      }
+    ],
+    num:1 //题目
   },
   onLoad: function (options) {
     console.log('options:', options);
@@ -29,13 +51,13 @@ Page({
       question_list: wx.getStorageSync('question_list')
     })
     let question_list = wx.getStorageSync('question_list');
-    console.log("question_list:", question_list[37]);
-    //console.log("question_list:", question_list[37].option.split(','));
-    var option = question_list[37].option.split(',');
+    console.log("question_list:", question_list[0]);
+    //console.log("question_list:", question_list[0].option.split(','));
+    var option = question_list[0].option.split(',');
     //console.log("question_list:", a[0]);
     that.setData({
-      question_list: question_list[37],
-      option: question_list[37].option.split(',')
+      question_list: question_list[0],
+      option: question_list[0].option.split(',')
     })
     for (let i = 0; i < question_list.length;i++){
       
@@ -54,21 +76,184 @@ Page({
     // }, 1000)
   },
   // 
-  pushAnswer(e) {
+  backText(e) {
     let that = this;
-    let idx = e.currentTarget.dataset.index;
-    let answer = that.data.answerArr;
-    let clickText = answerArr[idx];
-    let textArr = that.data.textArr;
-    textArr[clickText.idx] = clickText.text;
-    answerArr[idx] = '';
-    let clickTextCount = that.data.clickTextCount - 1;
+    let askindex = e.currentTarget.dataset.askindex; //选项索引
+    let index = e.currentTarget.dataset.index; //答案索引
+    let text = e.currentTarget.dataset.text; //文字
+    let option = that.data.option;
+    let answer = that.data.answer;
+    let click = that.data.click;
+    let notice = e.currentTarget.dataset.notice;
+    console.log('text', text);
+    if (text == 'undefined' || text == undefined) {
+      return;
+    }
+    if (notice == true && text != 'undefined' && text != undefined) {
+      console.log(text);
+      tips.alert('提示的不能移除')
+      return;
+    }
+    for (let i = 0; i < option.length; i++) {
+      if (i == askindex) {
+        option[i] = text
+      }
+    }
+    for (let j = 0; j < answer.length; j++) {
+      if (j == index) {
+        let obj = {
+          text: 0,
+          obj: -1
+        }
+        answer[j] = obj;
+      }
+
+    }
     that.setData({
-      answerArr,
-      textArr,
-      clickTextCount
+      option,
+      answer,
+      click: click - 1
     })
   },
+  // 选择
+  checked(e) {
+    let that = this;
+    let text = e.currentTarget.dataset.text;
+    let index = e.currentTarget.dataset.index;
+    let answer = that.data.answer;
+    let option = that.data.option;
+    let click = that.data.click;
+    console.log('text:', text)
+    if (text == "") {
+      return;
+    }
+    if (click == 4) {
+      let huida = [];
+      for (let i = 0; i < answer.length; i++) {
+        huida.push(answer[i].text)
+      }
+      console.log(huida, 'huida:');
+      console.log(typeof (huida.toString()));
+      // 答题
+      wx.request({
+        url: app.data.apiurl + "guessmc/friend-answer?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+        data: {
+          num: that.data.num,
+          answer: huida.toString(),
+          guess_type: 'idiom'
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("回答:", res);
+          var status = res.data.status;
+          
+        }
+      })
+    }
+    let both = {};
+    click = click + 1;
+    console.log("click:", click);
+    that.setData({
+      click
+    })
+    // 答案
+    for (let i = 0; i < answer.length; i++) {
+      if (answer[i].text == 0 || !answer[i].text) {
+        let obj = {
+          text: text,
+          askindex: index,
+          notice: false
+        };
+        answer[i] = obj;
+        break;
+      }
+    }
+    for (let j = 0; j < option.length; j++) {
+      if (j == index) {
+        option[j] = 0;
+      }
+    }
+    that.setData({
+      answer,
+      option
+    })
+    if (click == 4) {
+      let huida = [];
+      for (let i = 0; i < answer.length; i++) {
+        huida.push(answer[i].text)
+      }
+      console.log(huida, 'huida:');
+      console.log(typeof (huida.toString()));
+      // 答题
+      wx.request({
+        url: app.data.apiurl + "guessmc/friend-answer?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+        data: {
+          num: that.data.num,
+          answer: huida.toString(),
+          guess_type: 'idiom',
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("回答:", res);
+          var status = res.data.status;
+          if (status == 1) {
+            let keyword = res.data.data;
+            that.sendSocketMessage(keyword);
+            wx.onSocketMessage(function (res) {
+              console.log('收到服务器内容：' + res.data);
+              let result = JSON.parse(res.data);
+              console.log(result);
+              console.log(result.status);
+              if (result.status == 2) {
+                that.setData({  //双方进去房间
+                  comeIn: true
+                })
+                var userInfo = that.data.userInfo;
+                // wx.setStorageSync(key, data);
+                if (result.member_info[0].mid != wx.getStorageSync('mid')) {  //房主 
+                  that.setData({
+                    otherImg: result.member_info[0].avatarurl,
+                    otherName: result.member_info[0].wx_name,
+                    houseImg: userInfo.avatarUrl,
+                    houseName: userInfo.nickName
+                  })
+                  wx.setStorageSync('otherName', result.member_info[0].avatarurl);
+                  wx.setStorageSync('otherImg', result.member_info[0].wx_name);
+                } else { //other别人
+                  that.setData({
+                    otherImg: result.member_info[1].avatarurl,
+                    otherName: result.member_info[1].wx_name,
+                    houseImg: userInfo.avatarUrl,
+                    houseName: userInfo.nickName
+                  })
+                  wx.setStorageSync('otherName', result.member_info[1].avatarurl);
+                  wx.setStorageSync('otherImg', result.member_info[1].wx_name);
+                }
+              } else if (result.status == 0) {
+                tips.alert(result.msg)
+              }
+            })
+          } else {
+            console.log(res.data.msg);
+            tips.alert(res.data.msg);
+          }
+        }
+      })
+    }
 
+    // 如果点击6次就提交
+  },
+  // websocket发送消息
+  sendSocketMessage: function (msg) {
+    wx.sendSocketMessage({
+      data: msg
+    })
+  },
 
 })

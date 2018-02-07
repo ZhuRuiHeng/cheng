@@ -111,6 +111,17 @@ to {top:0px;right:0px;}
     box-shadow:2px 2px 5px #fee510;
     border:2px solid #8d1a03;
 }
+.answer .item text{
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.option .item text{
+  width: 70rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+}
 .option .item{
     display: inline-block;
     width: 70rpx;
@@ -177,3 +188,6 @@ to {top:20rpx;}
     font-weight: bold;
     text-shadow: 0 2px #4f8fe7, 2px 0 #4f8fe7, -2px 0 #4f8fe7, 0 -2px #4f8fe7;
 }
+ .hide{
+    visibility: hidden;
+  }    
