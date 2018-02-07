@@ -1,5 +1,5 @@
 /* pages/indexs/indexs.wxss */
-page,button.submit{
+page,button.submit,form{
    background-color: #c5e4ff;
    overflow: hidden;
 }
