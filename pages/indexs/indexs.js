@@ -71,42 +71,47 @@ Page({
             that.setData({
               time: res.data.data
             })
+            // 倒计时
+            let minutes = '';
+            let seconds = '';
+            var maxtime = that.data.time; //一个小时，按秒计算，自己调整! 
+            console.log(typeof (maxtime));
+            var inter = setInterval(function () {
+
+              if (maxtime <= 1) {
+                clearInterval(inter);
+              }
+              if (maxtime >= 0) {
+                minutes = Math.floor(maxtime / 60);
+                seconds = Math.floor(maxtime % 60);
+                let msg = minutes + "分" + seconds + "秒";
+                that.setData({
+                  time: msg
+                })
+                if (maxtime == 5 * 60) console.log('注意，还有5分钟!');
+                --maxtime;
+              }
+              else {
+                that.setData({
+                  time: '有金币可领取'
+                })
+                clearInterval(inter);
+                console.log("时间到，结束!");
+              }
+              maxtime--;
+              //console.log(maxtime);
+              that.setData({
+                maxtime,
+                inter
+              })
+            }, 1000)
           } else {
             console.log(res.data.msg)
           }
         }
       })
     }
-    // 倒计时
-    let minutes = '';
-    let seconds = '';
-    var maxtime = that.data.time; //一个小时，按秒计算，自己调整! 
-    var inter = setInterval(function () {
-      
-      if (maxtime <= 1) {
-        clearInterval(inter);
-      }
-      if (maxtime >= 0) {
-        minutes = Math.floor(maxtime / 60);
-        seconds = Math.floor(maxtime % 60);
-        let msg = minutes + "分" + seconds + "秒";
-        that.satData({
-          time: msg
-        })
-        if (maxtime == 5 * 60) console.log('注意，还有5分钟!');
-        --maxtime;
-      }
-      else {
-        return;
-        console.log("时间到，结束!");
-      }
-      maxtime--;
-      console.log(maxtime);
-      that.setData({
-        maxtime,
-        inter
-      })
-    }, 1000)
+    
   },
   onHide: function () {
   
@@ -226,14 +231,17 @@ Page({
                 minutes = Math.floor(maxtime / 60);
                 seconds = Math.floor(maxtime % 60);
                 let msg = minutes + "分" + seconds + "秒";
-                that.satData({
+                that.setData({
                   time: msg
                 })
                 if (maxtime == 5 * 60) console.log('注意，还有5分钟!');
                 --maxtime;
               }
               else {
-                return;
+                that.setData({
+                  time: '有金币可领取'
+                })
+                clearInterval(inter);
                 console.log("时间到，结束!");
               }
               maxtime--;

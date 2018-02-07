@@ -21,7 +21,24 @@ Page({
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
     });
-    // 转发成功 好友发起pk
+    // 请求登录密匙连接到socket
+    wx.request({
+      url: app.data.apiurl + "guessipk/go-socket?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+      data: {
+        guess_type: '	idiom'
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET",
+      success: function (res) {
+        console.log('登录密匙', res)
+        that.setData({
+          key: res.data.data
+        })
+      }
+    })
+    // 发起pk
     wx.request({
       url: app.data.apiurl + "guessipk/create-pk?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
       data: {
@@ -57,13 +74,18 @@ Page({
             })
             wx.hideToast()
           })
+          // 连接到socket
+
           wx.onSocketOpen(function (res) {
             console.log('WebSocket连接已打开！')
             wx.hideToast()
             that.setData({
               socketOpen : true
             })
-            that.sendSocketMessage(that.data.keyword)
+            console.log(that.data.key,"key:");
+            that.sendSocketMessage(that.data.key);
+
+           // that.sendSocketMessage(that.data.keyword)
             // for (var i = 0; i < socketMsgQueue.length; i++) {
             //  
             // }
@@ -71,14 +93,23 @@ Page({
           })
           wx.onSocketMessage(function (res) {
             console.log('收到服务器内容：' + res.data);
-            let object = res.data;
-            var arr = []
-            for(var i in object) {
-              arr.push(i);
-              //属性
-              arr.push(object[i]); //值
+            let result = JSON.parse(res.data);
+            console.log(result);
+            console.log(result.status);
+            if (result.status==0){
+              // 登录失败
+              tips.alert(result.msg);
+            }else{
+              console.log(result.data)
             }
-            console.log(arr);
+            // let object = res;
+            // var arr = []
+            // for(var i in object) {
+            //   arr.push(i);
+            //   //属性
+            //   arr.push(object[i]); //值
+            // }
+            // console.log(arr);
           })
           wx.onSocketClose(function (res) {
             tips.alert('好友正在对战或者离开房间');
@@ -92,7 +123,7 @@ Page({
           //wx.closeSocket()
           wx.onSocketMessage(function (res) {
             console.log('收到服务器内容：' + res.data);
-            let object = res.data;
+            let object = res;
             var arr = []
             for (var i in object) {
               arr.push(i);
