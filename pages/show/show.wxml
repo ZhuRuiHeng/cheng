@@ -11,7 +11,9 @@
     <view class='button'>
         <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
             <button formType="submit" class="submit" style='border-radius:0'>
-                <button open-type='share'><image src="http://ovhvevt35.bkt.clouddn.com/chengyu/share1.png" mode='widthFix'></image> 分享好友</button>
+                <button open-type='share'  data-type="0">
+                    <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/share1.png" mode='widthFix'></image> 分享好友
+                </button>
             </button>
         </form>
         <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
@@ -23,7 +25,7 @@
     <view class='up'>
         <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
             <button formType="submit" class="submit" style='border-radius:0'>
-                <button open-type='share'>发起挑战</button>
+                <button open-type='share' data-type="1">发起挑战</button>
             </button>
         </form>
     </view>

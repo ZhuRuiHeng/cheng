@@ -1,13 +1,13 @@
 //app.js
 App({
   data:{
-    kid:654321,
+    kid:100,
     apiurl:'https://friend-guess.playonwechat.com/v1/'
   },
   onLaunch: function () {
     let that = this;
-    that.data.kid = '654321';
-    wx.setStorageSync("kid",'654321');
+    that.data.kid = '100';
+    wx.setStorageSync("kid",'100');
     // 音乐
     that.AppMusic = wx.createInnerAudioContext();
     that.AppMusic.autoplay = true;
@@ -107,7 +107,5 @@ App({
       }
     });
   },
-  globalData: {
-    userInfo: null
-  }
+  
 })

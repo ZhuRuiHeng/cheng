@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.1",
-	"appid": "wxfa3dda86a3f13ffd",
+	"appid": "wxb4430c0f75e1ea58",
 	"projectname": "%E6%B5%8B%E8%AF%95",
 	"isGameTourist": false,
 	"condition": {
@@ -26,7 +26,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 0,
 			"list": [
 				{
 					"id": -1,
@@ -56,7 +56,7 @@
 					"id": 4,
 					"name": "分享",
 					"pathName": "pages/waita/waita",
-					"query": "room_id=174680"
+					"query": ""
 				},
 				{
 					"id": -1,
