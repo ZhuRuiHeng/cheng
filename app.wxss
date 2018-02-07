@@ -1,6 +1,7 @@
 /**app.wxss**/
-.container {
-} 
+.container{
+  width: 100%;
+}
 button:after{
     content: none;
 }

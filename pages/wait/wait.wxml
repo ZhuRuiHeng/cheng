@@ -22,7 +22,7 @@
     </view>
      <view class='foot'>
         <view class='button'>
-            <view class='star'>
+            <view class='star' wx:if="{{comeIn}}">
               <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
                   <button formType="submit" class="submit" style='border-radius:0'>
                       开始
