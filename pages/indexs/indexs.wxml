@@ -26,7 +26,7 @@
                                 <view class='line'>
                                     <view class='bgColor' style='width:{{width}}rpx'></view>
                                 </view>
-                                <view class='time'>{{hour}}:{{minute}}:{{second}}</view>
+                                <view class='time'>{{time}}</view>
                           </view>
                         </view>
                         <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/4.png" mode="widthFix"></image>
@@ -55,7 +55,10 @@
             </view>
             <view class='right'>
                 <view class='nickName'>{{userInfo.nickName}}</view>
-                <view class='jinbi'><image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>111</view>
+                <view class='jinbi'>
+                    <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>
+                    {{point}}
+                </view>
             </view>
         </view>
     </button>
