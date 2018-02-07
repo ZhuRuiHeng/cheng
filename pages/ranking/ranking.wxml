@@ -7,14 +7,14 @@
                 <view class='one {{type=="all"?"active":""}}' bindtap='navbar' data-type='all'>世界排行榜</view>
             </view>
             <view class='list' wx:if="{{list}}">
-                <view class='item {{index == 0?"first":""}}' wx:for="{{list}}" wx:key="{{index}}">
+                <view class='item {{index == 0?"first":""}}' wx:for="{{list}}" wx:key="{{index}}" data-rank_id="{{item.rank_id}}">
                     <view class='left'>
                         <view  class='niceImg'><image src="{{item.avatarurl}}" mode='widthFix'></image></view>
                         <view class='inform'>
                             <view class='niceImg'>{{item.wx_name}}</view>
                             <view class='jifen'>
                                   <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/8.png" mode='widthFix'></image>
-                                  {{item.guess_music_point}}
+                                  {{item.star}}
                             </view>
                         </view>
                     </view>
@@ -23,7 +23,7 @@
                           <image wx:elif="{{index==1}}" src="http://ovhvevt35.bkt.clouddn.com/chengyu/two.png" mode='widthFix'></image>
                           <image wx:elif="{{index==2}}" src="http://ovhvevt35.bkt.clouddn.com/chengyu/three.png" mode='widthFix'></image>
                           <view wx:else>{{index+1}}</view>
-                          <view>三者大帝</view>
+                          <view>{{item.rank}}</view>
                     </view>
                 </view>
             </view>
@@ -40,7 +40,7 @@
                 <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/bei.png" mode='widthFix'></image>我的排名：xxx
             </view>
             <view class='share' style='padding-bottom:20rpx;'>
-                <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/share.png" mode='widthFix'></image>分享微信群可得xx金币
+                <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/share.png" mode='widthFix'></image>分享微信群可得+50金币
             </view>
         </view>
    </button>

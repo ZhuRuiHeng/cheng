@@ -1,3 +1,4 @@
+var app = getApp();
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -27,7 +28,27 @@ function jump() {
     }
   })
 }
+// 保存formid
+function formSubmit(e) {
+  let that = this;
+  let form_id = e.detail.formId;
+  wx.request({
+    url: "https://friend-guess.playonwechat.com/api/save-form?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
+    data: {
+      form_id: form_id
+    },
+    header: {
+      'content-type': 'application/json'
+    },
+    method: "GET",
+    success: function (res) {
+      
+    }
+  })
+}
+
 module.exports = {
   formatTime,
-  jump
+  jump,
+  formSubmit
 }

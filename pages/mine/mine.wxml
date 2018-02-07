@@ -17,18 +17,20 @@
         </view>
     </view>
     <view class='list' wx:if="{{list}}">
-        <view class='item {{index == 0?"first":""}}' wx:for="{{list}}" wx:key="{{index}}">
+        <view class='item {{index == 0?"first":""}}' wx:for="{{list}}" wx:key="{{index}}" 
+              bindtap='unlockTap' data-num='{{index}}' data-unlock='{{item.unlock}}'>
+            <view class='bgColor' wx:if="{{item.unlock==false}}"></view>
             <view class='left'>
-                <view  class='niceImg'><image src="{{item.avatarurl}}" mode='widthFix'></image></view>
+                <view  class='niceImg'><image src="{{userInfo.avatarUrl}}" mode='widthFix'></image></view>
                 <view class='inform'>
-                    <view class='niceImg'>{{item.wx_name}}</view>
+                    <view class='niceImg'>{{item.title}}</view>
                     <view class='jifen'>
-                          奖金:{{item.guess_music_point}}
+                          解锁金币:{{item.use_point}}
                     </view>
                 </view>
             </view>
             <view class='right'>
-                  <image wx:for="{{index+1}}" wx:key="{{index}}" 
+                  <image wx:for="{{item.use_star}}"  
                          src="http://ovhvevt35.bkt.clouddn.com/chengyu/star.png" mode='widthFix'></image>
             </view>
         </view>

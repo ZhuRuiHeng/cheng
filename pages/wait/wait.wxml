@@ -20,7 +20,6 @@
             <view class='text little'>来自：{{userInfo.province}}</view>
         </view> 
     </view>
-     {{socktBtnTitle}}
      <view class='foot'>
         <view class='button'>
             <view class='star'>

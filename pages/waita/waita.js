@@ -10,7 +10,33 @@ Page({
     socktBtnTitle: '连接socket'
   },
   onLoad: function (options) {
-    app.getAuth(function () { })
+    console.log('options:', options);
+    this.setData({
+      room_id: options.room_id
+    })
+    app.getAuth(function () { 
+      let that = this;
+      
+      // 加好友
+      wx.request({
+        url: app.data.apiurl + "guessipk/friend?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+        data: {
+          friend_mid: that.data.room_id,
+          guess_type: '	idiom',
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log('加好友成功：',res)
+          let status = res.data.status;
+          if (status==1){
+              console.log('加好友成功！')
+          }
+        }
+      })
+    })
     console.log('options', options);
     let that = this;
     that.setData({

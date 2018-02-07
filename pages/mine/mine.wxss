@@ -8,18 +8,19 @@ page{
     background: #2f7ee7;
     color: #ffffff;
     text-align: center;
-    height: 300rpx;
+    height: 320rpx;
     width: 96%;
     margin: 0 auto;
     border-radius: 20rpx;
+    padding-top: 20rpx;
 }
 .time{
   font-size: 26rpx;
   padding: 20rpx;
 }
 .title image{
-  width: 100rpx;
-  height: 100rpx;
+  width: 80rpx;
+  height: 80rpx;
   border-radius: 50%;
   vertical-align: middle;
 }
@@ -66,6 +67,7 @@ page{
     background: #2f7ee7;
     border-radius: 20rpx;
     margin-bottom: 10rpx;
+    position: relative;
 }
 .list .item .left{
   display: flex;
@@ -73,6 +75,15 @@ page{
 }
 .list .item.first{
   border-top: 6rpx solid #2561b8;
+}
+.bgColor{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 144rpx;
+    background: rgba(137, 187, 246, .5)
 }
 .num{
   border:1px solid #655bce;
@@ -114,17 +125,28 @@ page{
 .right{
   color: #fff;
   font-size: 26rpx;
+  background: #1c448a;
+  border-radius: 30rpx;
+  padding: 4rpx 10rpx;
+  position: relative;
+  top: 30rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  z-index: 9;
 }
 .right image{
     width: 40rpx;
     height: 50rpx;
-    margin-top: 20rpx;
+    margin-top: 10rpx;
 }
 .right view{
   margin-top: 10rpx;
 }
 .title .text{
   width: 300rpx;
+}
+.title image.text{
+  border-radius: 0!important;
 }
 .left .inform view{
   text-align: center;

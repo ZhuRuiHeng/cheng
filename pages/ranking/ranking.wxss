@@ -38,7 +38,7 @@ button{
   cursor: pointer;
 }
 .navbar view.active{
-  font-size: 34rpx;
+  font-size: 32rpx;
 }
 .navbar view.active:after{
     content:'';

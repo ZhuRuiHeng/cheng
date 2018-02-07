@@ -1,6 +1,5 @@
 <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
     <button formType="submit" class="submit" style='border-radius:0'>
-    {{socktBtnTitle}}
         <view class="container">
             <view class="checkBox">
                 <view class='box'>

@@ -51,8 +51,56 @@ Page({
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
     })
+    wx.request({
+      url: app.data.apiurl + "guessipk/toll-gate?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+      data: {
+        guess_type: 'idiom'
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET",
+      success: function (res) {
+        console.log("排位关卡:", res);
+        var status = res.data.status;
+        if (status == 1) {
+          that.setData({
+            list: res.data.data
+          })
+        } else {
+          console.log(res.data.msg)
+        }
+      }
+    })
   },
-
+// 解锁
+  unlockTap(e){
+    let that = this;
+    let num = e.currentTarget.dataset.num;
+    let unlock = e.currentTarget.dataset.unlock;
+    wx.request({
+      url: app.data.apiurl + "guessipk/unlock-gate?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+      data: {
+        guess_type: 'idiom',
+        num: num
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET",
+      success: function (res) {
+        console.log("排位关卡:", res);
+        var status = res.data.status;
+        if (status == 1) {
+          that.setData({
+            list: res.data.data
+          })
+        } else {
+          tips.alert(res.data.msg);
+        }
+      }
+    })
+  }
 
 
 })

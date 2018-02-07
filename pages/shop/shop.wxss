@@ -51,6 +51,8 @@ page{
   border-top-right-radius: 20rpx;
   border-bottom-right-radius: 20rpx;
   height: 148rpx;
+  position: relative;
+  top: -2rpx;
 }
 .num{
   text-align: center;
