@@ -9,7 +9,8 @@ Page({
   onLoad: function (options) {
     console.log('options:', options);
       this.setData({
-        usepoint: options.usepoint
+        usepoint: options.usepoint,
+        rank_id: options.rank_id
       })
   },
   onReady: function () {
@@ -20,9 +21,28 @@ Page({
       that.setData({
         userInfo: wx.getStorageSync('userInfo'),
       })
-      setTimeout(function(){
-            
-      },1000)
+      wx.request({
+        url: app.data.apiurl + "guessipk/match?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+        data: {
+          guess_type: 'idiom',
+          rank_id: that.data.rank_id
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("提示信息:", res);
+          var status = res.data.status;
+          if (status == 1) {
+            that.setData({
+              list: res.data.data
+            })
+          } else {
+            console.log(res.data.msg)
+          }
+        }
+      })
   },
 
 

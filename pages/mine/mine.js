@@ -54,7 +54,7 @@ Page({
     let usepoint = e.currentTarget.dataset.usepoint;
     if (unlock==true){
           wx.navigateTo({
-            url: '../battle/battle?usepoint=' + usepoint,
+            url: '../battle/battle?usepoint=' + usepoint +'&rank_id='+num,
           })
     }else{
       wx.request({
@@ -79,6 +79,4 @@ Page({
       })
     }
   }
-
-
 })
