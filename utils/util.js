@@ -17,7 +17,7 @@ const formatNumber = n => {
 function jump() {
   wx.navigateToMiniProgram({
     appId: 'wx22c7c27ae08bb935',
-    path: 'pages/index/index?scene=92c8a0964d1c6e8f0a33daf3a42798a5',
+    path: 'pages/index/index?scene=53e5ba17d89c401a03ed56b7a8791083',
     envVersion: 'release',
     success(res) {
       // 打开成功

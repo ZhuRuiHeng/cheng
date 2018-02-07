@@ -8,7 +8,7 @@ page{
     background: #2f7ee7;
     color: #ffffff;
     text-align: center;
-    height: 320rpx;
+    height: 280rpx;
     width: 96%;
     margin: 0 auto;
     border-radius: 20rpx;
@@ -27,19 +27,22 @@ page{
 .header .inform{
   display: flex;
   justify-content: space-between;
-  height: 90rpx;
+  height: 80rpx;
   padding: 0 20rpx;
 }
-.inform view{
+.header .inform view{
   display: block;
+  font-size: 32rpx;
+  position: relative;
+  top: 10rpx;
 }
-.inform .left image{
+.header .inform .left image{
     width: 60rpx;
     height: 60rpx;
     vertical-align: middle;
     margin-right: 6rpx;
 }
-.inform .right{
+.header .inform .right{
     background: #2561b8;
     height: 80rpx;
     line-height: 80rpx;
@@ -102,7 +105,7 @@ page{
   border:4rpx solid #ffffff;
   box-sizing: border-box;
 }
-.inform view{
+.item .inform view{
   margin-left: 10rpx;
   height: 40rpx;
   line-height: 40rpx;
@@ -122,7 +125,7 @@ page{
   margin-top: 10rpx;
   padding: 4rpx 26rpx 4rpx 10rpx;
 }
-.right{
+.item .right{
   color: #fff;
   font-size: 26rpx;
   background: #1c448a;

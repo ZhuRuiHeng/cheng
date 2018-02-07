@@ -11,34 +11,6 @@ Page({
       'http://iph.href.lu/80x80',
       'http://iph.href.lu/80x80'
     ],
-    list: [
-      {
-        avatarurl: 'http://iph.href.lu/300x300',
-        wx_name: '入门新手',
-        guess_music_point: 10,
-        num: 1
-      }, {
-        avatarurl: 'http://iph.href.lu/300x300',
-        wx_name: '起步熟手',
-        guess_music_point: 10,
-        num: 1
-      }, {
-        avatarurl: 'http://iph.href.lu/300x300',
-        wx_name: '远航',
-        guess_music_point: 10,
-        num: 1
-      }, {
-        avatarurl: 'http://iph.href.lu/300x300',
-        wx_name: '远航',
-        guess_music_point: 10,
-        num: 1
-      }, {
-        avatarurl: 'http://iph.href.lu/300x300',
-        wx_name: '远航',
-        guess_music_point: 10,
-        num: 1
-      },
-    ],
   },
   onLoad: function (options) {
   

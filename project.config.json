@@ -56,7 +56,25 @@
 					"id": 4,
 					"name": "分享",
 					"pathName": "pages/waita/waita",
-					"query": "room_id=173852"
+					"query": "room_id=174680"
+				},
+				{
+					"id": -1,
+					"name": "开始",
+					"pathName": "pages/star/star",
+					"query": "room_id=174680"
+				},
+				{
+					"id": 6,
+					"name": "炫耀",
+					"pathName": "pages/show/show",
+					"query": "room_id=174680"
+				},
+				{
+					"id": -1,
+					"name": "结果",
+					"pathName": "pages/result/result",
+					"query": "room_id=174680"
 				}
 			]
 		}

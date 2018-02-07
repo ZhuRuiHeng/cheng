@@ -273,7 +273,13 @@ Page({
       bank: false
     })
   },
-  // 
+  // 排位赛
+  gameTap(){
+      wx.navigateTo({
+        url: '../mine/mine',
+      })
+  },
+  // 分享
   onShareAppMessage: function (res) {
     let that = this;
     return {

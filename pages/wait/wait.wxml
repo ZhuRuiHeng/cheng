@@ -40,3 +40,9 @@
          <view class='color'>成语挑战,共5题,每题20秒时间</view>
     </view>
 </view>
+<view class='bg' wx:if="{{bg}}">
+    <view class='zindex'>
+        <view class='title'>好友正在对战或者离开房间</view>
+        <view class='item'></view>
+    </view>
+</view>

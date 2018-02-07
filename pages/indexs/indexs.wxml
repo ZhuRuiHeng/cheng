@@ -3,7 +3,7 @@
         <view class="container">
             <view class="checkBox">
                 <view class='box'>
-                    <view class="one">
+                    <view class="one" bindtap='gameTap'>
                         <view>排位赛</view>
                         <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/1.png" mode="widthFix"></image>
                     </view>

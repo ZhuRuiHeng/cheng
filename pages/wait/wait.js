@@ -12,9 +12,6 @@ Page({
   onLoad: function (options) {
     console.log('options', options);
     let that = this;
-    that.setData({
-      room_id: options.room_id,
-    })
   },
   onReady: function () {
 
@@ -42,8 +39,15 @@ Page({
         //发送websocket
         //util.socketBtnTap();
         if (!socketOpen) {
+          var remindTitle = socketOpen ? '正在关闭' : '正在连接'
+          wx.showToast({
+            title: remindTitle,
+            icon: 'loading',
+            duration: 10000
+          })
+          console.log('ws://139.199.67.245:9461' );
           wx.connectSocket({
-            url: 'ws://139.199.67.245:9461?mid=' + wx.getStorageSync('mid')
+            url: 'ws://139.199.67.245:9461'
           })
           wx.onSocketError(function (res) {
             socketOpen = false
@@ -59,16 +63,25 @@ Page({
             that.setData({
               socketOpen : true
             })
-            
+            that.sendSocketMessage(that.data.keyword)
             // for (var i = 0; i < socketMsgQueue.length; i++) {
-            //   that.sendSocketMessage(socketMsgQueue[i])
+            //  
             // }
             // socketMsgQueue = []
           })
           wx.onSocketMessage(function (res) {
-            console.log('收到服务器内容：' + res.data)
+            console.log('收到服务器内容：' + res.data);
+            let object = res.data;
+            var arr = []
+            for(var i in object) {
+              arr.push(i);
+              //属性
+              arr.push(object[i]); //值
+            }
+            console.log(arr);
           })
           wx.onSocketClose(function (res) {
+            tips.alert('好友正在对战或者离开房间');
             console.log('WebSocket 已关闭！')
             wx.hideToast()
             that.setData({
@@ -78,7 +91,15 @@ Page({
         } else {
           //wx.closeSocket()
           wx.onSocketMessage(function (res) {
-            console.log('收到服务器内容：' + res.data)
+            console.log('收到服务器内容：' + res.data);
+            let object = res.data;
+            var arr = []
+            for (var i in object) {
+              arr.push(i);
+              //属性
+              arr.push(object[i]); //值
+            }
+            console.log(arr);
           })
           wx.onSocketOpen(function (res) {
             console.log('WebSocket连接已打开！')
@@ -87,9 +108,22 @@ Page({
               socketOpen : true
             })
           })
+          wx.onSocketClose(function (res) {
+            tips.alert('好友正在对战或者离开房间');
+            console.log('WebSocket 已关闭！')
+            wx.hideToast()
+            that.setData({
+              socketOpen: false
+            })
+          })
         }
 
       }
+    })
+  },
+  sendSocketMessage: function (msg) {
+    wx.sendSocketMessage({
+      data: msg
     })
   },
   // 保存formid

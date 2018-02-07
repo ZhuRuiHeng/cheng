@@ -10,13 +10,12 @@ Page({
     socktBtnTitle: '连接socket'
   },
   onLoad: function (options) {
+    var that = this;
     console.log('options:', options);
-    this.setData({
+    that.setData({
       room_id: options.room_id
     })
     app.getAuth(function () { 
-      let that = this;
-      
       // 加好友
       wx.request({
         url: app.data.apiurl + "guessipk/friend?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
@@ -36,11 +35,6 @@ Page({
           }
         }
       })
-    })
-    console.log('options', options);
-    let that = this;
-    that.setData({
-      room_id: options.room_id,
     })
   },
   onReady: function () {
@@ -143,20 +137,9 @@ Page({
             duration: 10000
           })
           if (!socketOpen) {
+            console.log('ws://139.199.67.245:9461');
             wx.connectSocket({
-              url: 'ws://139.199.67.245:9461',
-              data: {
-                x: '',
-                y: ''
-              },
-              header: {
-                'content-type': 'application/json'
-              },
-              protocols: ['protocol1'],
-              method: "GET",
-              success: function(res) {
-                  console.log(res);
-              }
+              url: 'ws://139.199.67.245:9461'
             })
             wx.onSocketError(function (res) {
               socketOpen = false
@@ -172,11 +155,8 @@ Page({
               that.setData({
                 socktBtnTitle: '断开socket'
               })
-              socketOpen = true
-              for (var i = 0; i < socketMsgQueue.length; i++) {
-                that.sendSocketMessage(socketMsgQueue[i])
-              }
-              socketMsgQueue = []
+              socketOpen = true;
+              that.sendSocketMessage(that.data.keyword);
             })
             wx.onSocketMessage(function (res) {
               console.log('收到服务器内容：' + res.data)
@@ -190,7 +170,36 @@ Page({
               })
             })
           } else {
-            wx.closeSocket()
+            //wx.closeSocket()
+            wx.onSocketError(function (res) {
+              socketOpen = false
+              console.log('WebSocket连接打开失败，请检查！')
+              that.setData({
+                socktBtnTitle: '连接socket'
+              })
+              wx.hideToast()
+            })
+            wx.onSocketOpen(function (res) {
+              console.log('WebSocket连接已打开！')
+              wx.hideToast()
+              that.setData({
+                socktBtnTitle: '断开socket'
+              })
+              socketOpen = true;
+              that.sendSocketMessage(that.data.keyword);
+            })
+            wx.onSocketMessage(function (res) {
+              console.log('收到服务器内容：' + res.data)
+            })
+            wx.onSocketClose(function (res) {
+              socketOpen = false;
+              tips.alert('好友正在对战或者离开房间');
+              console.log('WebSocket 已关闭！')
+              wx.hideToast()
+              that.setData({
+                socktBtnTitle: '连接socket'
+              })
+            })
           }
 
         }
@@ -200,8 +209,12 @@ Page({
   // 保存formid
   formSubmit(e) {
     let that = this;
-    // util.formSubmit(e);
+    util.formSubmit(e);
   },
 
-
+  sendSocketMessage: function (msg) {
+    wx.sendSocketMessage({
+      data: msg
+    })
+  },
 })
