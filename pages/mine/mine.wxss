@@ -8,7 +8,7 @@ page{
     background: #2f7ee7;
     color: #ffffff;
     text-align: center;
-    height: 220rpx;
+    height: 240rpx;
     width: 96%;
     margin: 0 auto;
     border-radius: 20rpx;

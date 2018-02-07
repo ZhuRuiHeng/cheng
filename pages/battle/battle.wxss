@@ -10,7 +10,7 @@ page{
 }
 image.waitImg{
     width: 90%;
-    height: 350rpx; 
+    height: 650rpx;  
 }
 .wait image.niceImg{
     width: 120rpx;

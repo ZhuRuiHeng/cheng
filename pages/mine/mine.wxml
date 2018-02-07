@@ -12,7 +12,7 @@
               </view>
               <!--好友前4名  -->
               <view class='right'>
-                  <image wx:for="{{friendsList}}" wx:key="{{index}}" src="{{item}}" mode='widthFix'></image>
+                  <image wx:for="{{friendsList}}" wx:key="{{index}}" src="{{item.avatarurl}}" mode='widthFix'></image>
               </view>
         </view>
     </view>
