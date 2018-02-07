@@ -19,17 +19,19 @@
         <view class='left'></view>
         <view class='right'></view>
     </view>
+    <view class='num'>第{{index}}题</view>
     <view class='idiom'>
         <view>四字成语</view>
     </view>
-    <view class='caiImg'>
-        <image src="http://iph.href.lu/480x346" mode='widthFix'></image>
-    </view>
+    <view class='caiImg' style='background: url({{question_list.thumb}});'></view>
     <view class='answer'>
-        <view class='item' wx:for="{{answer}}" wx:key="{{index}}">{{item}}</view>
+        <view class='item'  bindtap='pushAnswer' wx:for="{{answer}}" wx:key="{{index}}">{{item}}</view>
     </view>
     <view class='option'>
-        <view class='item' wx:for="{{option}}" wx:key="{{index}}" data-index='{{index}}'>{{item}}</view>
+        <view class='item' bindtap='' wx:for="{{option}}" wx:key="{{index}}" data-index='{{index}}'>
+            {{item}}
+        </view>
     </view>
 </view>
+
 

@@ -85,11 +85,13 @@ to {top:0px;right:0px;}
 .caiImg{
   vertical-align: middle;
   text-align: center;
-  width: 480rpx;
-  height: 346rpx;
   margin: 0 auto;
   border: 10rpx solid #4f8fe7;
   border-radius: 20rpx;
+   background: url(https://qncdn.playonwechat.com/kantucaici/img_box_bg.png);
+  width: 397rpx;
+  height: 392rpx;
+  background-size: 100% 100%;
 }
 .caiImg image{  
   width: 100%;
@@ -118,6 +120,7 @@ to {top:0px;right:0px;}
     background: #ffffff;
     margin: 10rpx;
     box-shadow:2px 2px 5px #4f8fe7;
+    color: #000;
 }
 .time{
   font-size: 50rpx;
@@ -166,4 +169,11 @@ to {top:20rpx;}
   border-radius: 10rpx;
   /* border-top-right-radius: 10rpx;
   border-bottom-right-radius: 10rpx; */
+}
+.num {
+    text-align: center;
+    color: #ffffff;
+    font-size: 56rpx;
+    font-weight: bold;
+    text-shadow: 0 2px #4f8fe7, 2px 0 #4f8fe7, -2px 0 #4f8fe7, 0 -2px #4f8fe7;
 }

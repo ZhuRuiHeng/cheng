@@ -5,9 +5,9 @@ import tips from '../../utils/tips.js'
 Page({
   data: {
     userInfo: wx.getStorageSync('userInfo'),
-    answer:['四','字','成','语'],
-    option:['选','择','私','自','成','语','选','项','很','多','随','便','选','了'],
-    second:20
+    second:20,
+    answer: ['', '', '', ''],
+    index:1 //题目
   },
   onLoad: function (options) {
     console.log('options:', options);
@@ -26,8 +26,20 @@ Page({
     let second = that.data.second;
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
-      question_list: wx.getStorageSync('userInfo')
+      question_list: wx.getStorageSync('question_list')
     })
+    let question_list = wx.getStorageSync('question_list');
+    console.log("question_list:", question_list[37]);
+    //console.log("question_list:", question_list[37].option.split(','));
+    var option = question_list[37].option.split(',');
+    //console.log("question_list:", a[0]);
+    that.setData({
+      question_list: question_list[37],
+      option: question_list[37].option.split(',')
+    })
+    for (let i = 0; i < question_list.length;i++){
+      
+    }
     // 
     // var inter = setInterval(function () {
     //   if (second <= 1) {
@@ -41,7 +53,22 @@ Page({
     //   })
     // }, 1000)
   },
-
+  // 
+  pushAnswer(e) {
+    let that = this;
+    let idx = e.currentTarget.dataset.index;
+    let answer = that.data.answerArr;
+    let clickText = answerArr[idx];
+    let textArr = that.data.textArr;
+    textArr[clickText.idx] = clickText.text;
+    answerArr[idx] = '';
+    let clickTextCount = that.data.clickTextCount - 1;
+    that.setData({
+      answerArr,
+      textArr,
+      clickTextCount
+    })
+  },
 
 
 })
