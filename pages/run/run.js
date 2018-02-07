@@ -45,23 +45,19 @@ Page({
   },
   onShow: function () {
     let that = this;
+    let num = that.data.num;
     let second = that.data.second;
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
       question_list: wx.getStorageSync('question_list')
     })
     let question_list = wx.getStorageSync('question_list');
-    console.log("question_list:", question_list[0]);
-    //console.log("question_list:", question_list[0].option.split(','));
-    var option = question_list[0].option.split(',');
-    //console.log("question_list:", a[0]);
+    console.log("question_list:", question_list[num-1]);
+    var option = question_list[num - 1].option.split(',');
     that.setData({
-      question_list: question_list[0],
-      option: question_list[0].option.split(',')
+      question_list: question_list[num - 1],
+      option: question_list[num - 1].option.split(',')
     })
-    for (let i = 0; i < question_list.length;i++){
-      
-    }
     // 
     // var inter = setInterval(function () {
     //   if (second <= 1) {
@@ -214,29 +210,25 @@ Page({
                 that.setData({  //双方进去房间
                   comeIn: true
                 })
-                var userInfo = that.data.userInfo;
-                // wx.setStorageSync(key, data);
-                if (result.member_info[0].mid != wx.getStorageSync('mid')) {  //房主 
-                  that.setData({
-                    otherImg: result.member_info[0].avatarurl,
-                    otherName: result.member_info[0].wx_name,
-                    houseImg: userInfo.avatarUrl,
-                    houseName: userInfo.nickName
-                  })
-                  wx.setStorageSync('otherName', result.member_info[0].avatarurl);
-                  wx.setStorageSync('otherImg', result.member_info[0].wx_name);
-                } else { //other别人
-                  that.setData({
-                    otherImg: result.member_info[1].avatarurl,
-                    otherName: result.member_info[1].wx_name,
-                    houseImg: userInfo.avatarUrl,
-                    houseName: userInfo.nickName
-                  })
-                  wx.setStorageSync('otherName', result.member_info[1].avatarurl);
-                  wx.setStorageSync('otherImg', result.member_info[1].wx_name);
-                }
-              } else if (result.status == 0) {
+              } 
+              if (result.status == 0) {
                 tips.alert(result.msg)
+              }
+              if (result.status == 1){
+                let num = that.data.num;
+                tips.alert(result.msg);
+                that.setData({
+                  num: num + 1,
+                  click:0
+                })
+                let question_list = wx.getStorageSync('question_list');
+                console.log("question_list:", question_list[num - 1]);
+                var option = question_list[num - 1].option.split(',');
+                that.setData({
+                  question_list: question_list[num - 1],
+                  option: question_list[num - 1].option.split(',')
+                })
+                
               }
             })
           } else {
