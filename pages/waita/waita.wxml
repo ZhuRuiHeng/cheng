@@ -3,11 +3,11 @@
     <view class='header'>
         <view class='left public'>
             <view class='leftBg bg'>
-                  <image src="{{userInfo.avatarUrl}}" mode='widthFix'></image>
+                  <image src="{{otherImg}}" mode='widthFix'></image>
             </view>
         </view>
         <view class='leftInform inform'>
-            <view class='text name'>{{userInfo.nickName}}</view>
+            <view class='text name'>{{otherName}}</view>
             <view class='text little'>来自：{{userInfo.province}}</view>
         </view> 
         <view class='right public'>
@@ -29,7 +29,7 @@
                   </button>
               </form>
             </view> -->
-            <view class='out'>
+            <view class='out' bindtap='outTap'>
               <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
                   <button formType="submit" class="submit" style='border-radius:0'>
                       退出

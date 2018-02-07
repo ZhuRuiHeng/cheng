@@ -14,9 +14,23 @@ Page({
     minute:'60',
     second:'00',
     width:60,
-    socktBtnTitle: '连接socket'
+    socktBtnTitle: '连接socket',
+    music: true
   },
   onLoad: function (options) {
+    let that = this;
+    // 如果缓存是false
+    if (wx.getStorageSync('music')==false){
+      that.setData({
+        music: false
+      })
+      wx.setStorageSync('music', false);
+      console.log('stop');
+      app.AppMusic.stop();
+      app.AppMusic.onPause(() => {
+        console.log('暂停播放');
+      })
+    }
     app.getAuth(function () {
       let that = this;
     });
@@ -25,6 +39,15 @@ Page({
   
   },
   onShow: function () {
+    if (wx.openBluetoothAdapter) {
+      wx.openBluetoothAdapter()
+    } else {
+      // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
+      wx.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
     let that = this;
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
@@ -175,30 +198,29 @@ Page({
     })
   },
   // 音效
-  switch1Change: function (e) {
+  switch2Change: function (e) {
+    let that = this;
     console.log('switch1 发生 change 事件，携带值为', e.detail.value);
     if (e.detail.value==true){
       console.log('play');
+      that.setData({
+        music:true
+      })
       app.AppMusic.play();
       app.AppMusic.onPlay(() => {
         console.log('开始播放');
-        that.setData({
-          status: true
-        })
       }) 
     }else{
+      wx.setStorageSync('music', false);
       console.log('stop');
       app.AppMusic.stop();
       app.AppMusic.onPause(() => {
         console.log('暂停播放');
-        that.setData({
-          status: false
-        })
       })
     }
   },
   // 推送
-  switch2Change: function (e) {
+  switch1Change: function (e) {
     console.log('switch1 发生 change 事件，携带值为', e.detail.value);
     if (e.detail.value == true) {
       console.log('true');
@@ -339,9 +361,10 @@ Page({
   // 分享
   onShareAppMessage: function (res) {
     let that = this;
+    let userInfo = that.data.userInfo;
     return {
       title: '不服来战',
-      path: '/pages/waita/waita?room_id=' + wx.getStorageSync('mid'),
+      path: '/pages/waita/waita?room_id=' + wx.getStorageSync('mid') + '&otherName=' + userInfo.nickName + '&otherImg=' + userInfo.avatarUrl,
       success: function (res) {
         wx.navigateTo({
           url: '../wait/wait',

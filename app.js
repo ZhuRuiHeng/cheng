@@ -10,8 +10,9 @@ App({
     wx.setStorageSync("kid",'654321');
     // 音乐
     that.AppMusic = wx.createInnerAudioContext();
-    that.AppMusic.autoplay = false;
-    that.AppMusic.loop = false;
+    that.AppMusic.autoplay = true;
+    that.AppMusic.loop = true;
+    that.AppMusic.src ='http://ovhvevt35.bkt.clouddn.com/chengyu/Various%20Artists%20-%20Give%20It%20Up.mp3';
     that.AppMusic.onPlay(() => {
       console.log('开始播放')
     })

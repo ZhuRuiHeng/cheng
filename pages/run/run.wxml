@@ -3,16 +3,16 @@
     <view class='header'>
         <view class='left public'>
             <view class='leftBg bg'>
-                  <image src="{{userInfo.avatarUrl}}" mode='widthFix'></image>
+                  <image src="{{houseImg}}" mode='widthFix'></image>
             </view>
-            <view class='text'>{{userInfo.nickName}}</view>
+            <view class='text'>{{houseName}}</view>
         </view>
         <view class='time'>{{second}}</view>
         <view class='right public'>
             <view class='rightBg bg'>
-                  <image src="{{userInfo.avatarUrl}}" mode='widthFix'></image>
+                  <image src="{{otherImg}}" mode='widthFix'></image>
             </view>
-            <view class='text'>{{userInfo.nickName}}</view>
+            <view class='text'>{{otherName}}</view>
         </view>
     </view>
     <view class='line'>

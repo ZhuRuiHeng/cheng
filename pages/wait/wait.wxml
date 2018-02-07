@@ -10,19 +10,20 @@
             <view class='text name'>{{userInfo.nickName}}</view>
             <view class='text little'>来自：{{userInfo.province}}</view>
         </view> 
+        <view class='wait' wx:if="{{wait}}">等待中...</view>
         <view class='right public'>
             <view class='rightBg bg'>
-                  <image src="{{userInfo.avatarUrl}}" mode='widthFix'></image>
+                  <image src="{{otherImg}}" mode='widthFix'></image>
             </view>
         </view>
         <view class='rightInform inform'>
-            <view class='text name'>{{userInfo.nickName}}</view>
+            <view class='text name'>{{otherName}}</view>
             <view class='text little'>来自：{{userInfo.province}}</view>
         </view> 
     </view>
      <view class='foot'>
         <view class='button'>
-            <view class='star' wx:if="{{comeIn}}">
+            <view class='star' wx:if="{{comeIn}}" bindtap='starTap'>
               <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
                   <button formType="submit" class="submit" style='border-radius:0'>
                       开始
@@ -30,7 +31,7 @@
               </form>
             </view>
             {{inform}}
-            <view class='out'>
+            <view class='out' bindtap='outTap'>
               <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
                   <button formType="submit" class="submit" style='border-radius:0'>
                       退出

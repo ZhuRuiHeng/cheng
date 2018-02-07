@@ -1,6 +1,9 @@
 <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
     <button formType="submit" class="submit" style='border-radius:0'>
         <view class="container">
+            <view class='banner'>
+                <image src="http://ovhvevt35.bkt.clouddn.com/chengyu/banner.png" mode="widthFix"></image>
+            </view>
             <view class="checkBox">
                 <view class='box'>
                     <view class="one" bindtap='gameTap'>
@@ -75,7 +78,7 @@
             音效 <switch checked bindchange="switch1Change" color="#3d66a1"/>
         </view>
         <view class='music'>
-            推送 <switch checked bindchange="switch2Change" color="#3d66a1"/>
+            音乐 <switch checked="{{music}}" bindchange="switch2Change" color="#3d66a1"/>
         </view>
         <view class='version'>当前版本：<text>1.0.0</text> </view>
     </view>

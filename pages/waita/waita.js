@@ -7,14 +7,20 @@ var socketMsgQueue = [];
 Page({
   data: {
     userInfo: wx.getStorageSync('userInfo'),
-    socketOpen: false
+    socketOpen: false,
+    otherImg: 'http://iph.href.lu/80x80',
+    otherName: '未知'
   },
   onLoad: function (options) {
     var that = this;
     console.log('options:', options);
     that.setData({
-      room_id: options.room_id
+      room_id: options.room_id,
+      otherName: options.otherName,
+      otherImg: options.otherImg,
     })
+    wx.setStorageSync('otherName', options.otherName);
+    wx.setStorageSync('otherImg', options.otherImg);
     app.getAuth(function () { 
       // 加好友
       wx.request({
@@ -41,6 +47,15 @@ Page({
 
   },
   onShow: function () {
+    if (wx.openBluetoothAdapter) {
+      wx.openBluetoothAdapter()
+    } else {
+      // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
+      wx.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
     let that = this;
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
@@ -106,10 +121,48 @@ Page({
                       method: "GET",
                       success: function (res) {
                         console.log("发起pk链接websocket:", res);
+                        var keyword = res.data.data;
                         that.setData({
                           keyword: res.data.data
                         })
-                        that.caozuo(that.data.keyword)
+                        console.log('是否发送');
+                        that.sendSocketMessage(keyword);
+                        wx.onSocketMessage(function (res) {
+                          console.log('收到服务器内容：' + res.data);
+                          let result = JSON.parse(res.data);
+                          console.log(result);
+                          console.log(result.status);
+                          if (result.status == 2) {
+                            console.log(result.member_info);
+                            if (result.member_info[0].mid == wx.getStorageSync('mid')) {  //myself
+                              that.setData({
+                                otherImg: result.member_info[0].avatarurl,
+                                otherName: result.member_info[0].wx_name,
+                                houseImg: result.member_info[1].avatarUrl,
+                                houseName: result.member_info[1].nickName
+                              })
+                              wx.setStorageSync('otherName', result.member_info[0].avatarurl);
+                              wx.setStorageSync('otherImg', result.member_info[0].wx_name);
+                            } else { //other别人
+                              that.setData({
+                                otherImg: result.member_info[1].avatarurl,
+                                otherName: result.member_info[1].wx_name,
+                                houseImg: result.member_info[0].avatarUrl,
+                                houseName: result.member_info[0].nickName
+                              })
+                              wx.setStorageSync('otherName', result.member_info[1].avatarurl);
+                              wx.setStorageSync('otherImg', result.member_info[1].wx_name);
+                            }
+                          }
+                          if (result.status == 1 && result.question_list) {
+                            wx.setStorageSync('question_list', result.question_list)
+                            wx.navigateTo({
+                              url: '../run/run?question_list=' + result.question_list + '&otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName,
+                            })
+                          } else if (result.status == 0) {
+                            tips.alert(result.msg)
+                          }
+                        })
                       }
                     })
                   }
@@ -221,4 +274,14 @@ Page({
       data: msg
     })
   },
+  // outTap退出
+  outTap(e){
+    wx.closeSocket();
+    wx.onSocketClose(function (res) {
+      console.log('WebSocket 已关闭！')
+    })
+    wx.redirectTo({
+      url: '../indexs/indexs',
+    })
+  }
 })
