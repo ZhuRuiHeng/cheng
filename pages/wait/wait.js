@@ -184,7 +184,7 @@ Page({
               console.log(result);
               if (result.status == 1) {
                 wx.setStorageSync('question_list', result.question_list)
-                wx.navigateTo({
+                wx.reLaunch({
                   url: '../run/run?otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName + '&room_id=' + wx.getStorageSync('mid')
                 })
               } else if (result.status == 0) {
@@ -305,6 +305,13 @@ Page({
   waitTap(){
     this.setData({
       bg:false
+    })
+  },
+  // 退出
+  onHide() {
+    wx.closeSocket();
+    wx.onSocketClose(function (res) {
+      console.log('WebSocket 已关闭！')
     })
   }
 

@@ -265,9 +265,8 @@ Page({
           console.log("钱庄取钱剩余时间:", res);
           var status = res.data.status;
           if (status == 1) {
-            tips.alert('金币+60')
             that.setData({
-              point: res.data.data.point+60
+              point: res.data.data.point + that.data.allPoint.bank_point
             })
           } else {
             console.log(res.data.msg)

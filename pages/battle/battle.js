@@ -130,6 +130,9 @@ Page({
                               wx.setStorageSync('otherName', result.member_info[1].avatarurl);
                               wx.setStorageSync('otherImg', result.member_info[1].wx_name);
                             }
+                            wx.reLaunch({
+                              url: '../paiwei/paiwei',
+                            })
                           }
                           if (result.status == 0) {
                             if (result.msg == '超时'){
@@ -144,7 +147,6 @@ Page({
                   }
                 })
               }
-
             }
           })
           wx.onSocketError(function (res) {
@@ -183,6 +185,13 @@ Page({
     })
     wx.reLaunch({
       url: '../indexs/indexs',
+    })
+  },
+  // 退出
+  onHide() {
+    wx.closeSocket();
+    wx.onSocketClose(function (res) {
+      console.log('WebSocket 已关闭！')
     })
   }
 })

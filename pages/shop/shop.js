@@ -53,10 +53,26 @@ Page({
       success: function (res) {
         console.log("充值:", res);
         var status = res.data.status;
+        console.log("status:", status);
         if (status == 1) {
-          console.log('调用微信支付')
+          // 调用支付
+          wx.requestPayment({
+            timeStamp: res.data.data.data.timeStamp,
+            nonceStr: res.data.data.data.nonceStr,
+            package: res.data.data.data.package,
+            signType: res.data.data.data.signType,
+            paySign: res.data.data.data.paySign,
+            success: function (res) {
+              tips.success('支付成功！');
+            },
+            fail: function (res) {
+              console.log(res);
+              tips.success('支付失败！');
+            }
+          })
+
         } else {
-          console.log(res.data.msg)
+          console.log(res.data.msg);
         }
       }
     })
