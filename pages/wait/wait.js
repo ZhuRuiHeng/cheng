@@ -55,7 +55,7 @@ Page({
             that.sendSocketMessage(keyword);
           })
           wx.onSocketMessage(function (res) {
-            console.log('收到服务器内容：' + res.data);
+            console.log('收到服务器内容1：' + res.data);
             let result = JSON.parse(res.data);
             console.log(result);
             console.log(result.status);
@@ -98,7 +98,7 @@ Page({
                     console.log('是否发送');
                     that.sendSocketMessage(keyword);
                     wx.onSocketMessage(function (res) {
-                      console.log('收到服务器内容：' + res.data);
+                      console.log('收到服务器内容2：' + res.data);
                       let result = JSON.parse(res.data);
                       console.log(result);
                       console.log(result.status);
@@ -232,7 +232,7 @@ Page({
    
     //wx.closeSocket()
     wx.onSocketMessage(function (res) {
-      console.log('收到服务器内容：' + res.data);
+      console.log('收到服务器内容3：' + res.data);
       let result = JSON.parse(res.data);
       console.log(result);
       console.log(result.status);
@@ -271,7 +271,7 @@ Page({
               console.log('是否发送');
               that.sendSocketMessage(keyword);
               wx.onSocketMessage(function (res) {
-                console.log('收到服务器内容：' + res.data)
+                console.log('收到服务器内容4：' + res.data)
               })
             }
           })
