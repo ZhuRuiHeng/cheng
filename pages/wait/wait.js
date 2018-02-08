@@ -199,6 +199,25 @@ Page({
               } else if (result.status == 0) {
                 tips.alert(result.msg)
               }
+              if (result.num) {
+                if (result.mid == that.data.room_id) { //房主
+                  console.log('room_id');
+                  let houseInform = result;
+                  that.setData({  //回答反馈
+                    houseInform: result
+                  })
+                  wx.setStorageSync('houseInform', houseInform);
+                } 
+                if (result.mid != that.data.room_id) {  //other
+                  console.log('otherInform');
+                  let otherInform = result;
+                  that.setData({  //回答反馈
+                    otherInform: result
+                  })
+                  wx.setStorageSync('otherInform', otherInform);
+                }
+
+              }
             })
          // }
         } else {

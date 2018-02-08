@@ -44,7 +44,16 @@ Page({
         room_id: options.room_id,
         othermid: options.othermid
       })
-      
+      if (wx.getStorageSync('houseInform')){
+          this.setData({
+            houseInform: wx.getStorageSync('houseInform')
+          })
+      }
+      if (wx.getStorageSync('otherInform')) {
+        this.setData({
+          houseInform: wx.getStorageSync('otherInform')
+        })
+      }
   },
   onReady: function () {
 
@@ -78,7 +87,7 @@ Page({
         console.log(111);
         if (that.data.title >= 5){
             wx.reLaunch({
-              url: '../result/result',
+              url: '../result/result?room_id=' + that.data.room_id
             })
         }
         if (that.data.housemid == wx.getStorageSync('mid')){ //群主
@@ -114,7 +123,7 @@ Page({
                     })
                     tips.alert(result.msg);
                     wx.redirectTo({
-                      url: '../result/result',
+                      url: '../result/result?room_id=' + that.data.room_id
                     })
                   }
                   if (result.num) {
@@ -124,17 +133,19 @@ Page({
                         houseInform: result
                       })
 
-                    } else {  //other
+                    }
+                    if (result.mid != that.data.room_id){  //other
                       let otherInform = result;
                       that.setData({  //回答反馈
                         otherInform: result
                       })
                     }
+                    console.log(that.data.houseInform ,that.data.otherInform);
                     if (that.data.houseInform && that.data.otherInform) {
                       clearInterval(inter);
                       if (that.data.title >= 5) {
                         wx.reLaunch({
-                          url: '../result/result',
+                          url: '../result/result?room_id=' + that.data.room_id
                         })
                       }
                       let title = that.data.title + 1;
@@ -214,7 +225,7 @@ Page({
                     })
                     tips.alert(result.msg);
                     wx.redirectTo({
-                      url: '../result/result',
+                      url: '../result/result?room_id=' + that.data.room_id
                     })
                   }
                   if (result.num) {
@@ -233,7 +244,7 @@ Page({
                       clearInterval(inter);
                       if (that.data.title >= 5) {
                         wx.reLaunch({
-                          url: '../result/result',
+                          url: '../result/result?room_id=' + that.data.room_id
                         })
                       }
                       let title = that.data.title + 1;
@@ -251,6 +262,8 @@ Page({
                         num: question_list[title - 1].num,
                         title,
                         second: 20,
+                        otherInform:false,
+                        houseInform:false,
                         answer: [
                           {
                             text: 0,
@@ -428,7 +441,7 @@ Page({
                 })
                 tips.alert(result.msg);
                 wx.redirectTo({
-                  url: '../result/result',
+                  url: '../result/result?room_id=' + that.data.room_id,
                 })
               }
               if (result.num){
@@ -438,16 +451,27 @@ Page({
                   that.setData({  //回答反馈
                     houseInform: result
                   })
-                } else if(result.mid != that.data.room_id){  //other
+                }
+                if(result.mid != that.data.room_id){  //other
                   console.log('otherInform');
                   let otherInform = result;
                   that.setData({  //回答反馈
                     otherInform: result
                   })
                 }
+                console.log(wx.getStorageSync('otherInform'), 'otherInform');
+                console.log(wx.getStorageSync('room_id'), 'room_id');
+                console.log(that.data.houseInform , that.data.otherInform);
                 if (that.data.houseInform && that.data.otherInform){
-                  //clearInterval(inter);
+                  console.log('二者都有')
+                  clearInterval(inter);
+                  
                     let title = that.data.title + 1;
+                    if (title >= 5) {
+                        wx.reLaunch({
+                          url: '../result/result?room_id=' + that.data.room_id
+                        })
+                    }
                     tips.alert(result.msg);
                     that.setData({
                       title: title,

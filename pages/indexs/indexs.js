@@ -37,6 +37,7 @@ Page({
     }
     app.getAuth(function () {
       let that = this;
+      
     });
   },
   onReady: function () {
@@ -53,12 +54,13 @@ Page({
       })
     }
     let that = this;
-    that.setData({
-      userInfo: wx.getStorageSync('userInfo'),
-    })
+   
     // 钱庄取钱剩余时间
     if (!wx.getStorageSync('sign')){
         app.getAuth(function () {
+          that.setData({
+            userInfo: wx.getStorageSync('userInfo'),
+          })
           wx.request({
             url: app.data.apiurl + "guessipk/get-bank-time?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
             data: {
@@ -184,7 +186,9 @@ Page({
         }
       })
     }
-    
+    that.setData({
+      userInfo: wx.getStorageSync('userInfo'),
+    })
   },
   onHide: function () {
   

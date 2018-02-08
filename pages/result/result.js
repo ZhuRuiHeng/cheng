@@ -11,13 +11,38 @@ Page({
       withShareTicket: true,
     })
   },
-  onReady: function () {
-
+  onReady: function (options) {
+      this.setData({
+        room_id: options.room_id
+      })
   },
   onShow: function () {
     let that = this;
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
+    })
+    // 好友结束PKfriend-end-pk
+    wx.request({
+      url: app.data.apiurl + "guessipk/friend-end-pk?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+      data: {
+        room_id: that.data.room_id,
+        guess_type: 'idiom'
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET",
+      success: function (res) {
+        console.log("提示信息:", res);
+        var status = res.data.status;
+        if (status == 1) {
+          that.setData({
+            list: res.data.data
+          })
+        } else {
+          console.log(res.data.msg)
+        }
+      }
     })
   },
   // 保存formid

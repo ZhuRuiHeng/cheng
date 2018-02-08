@@ -157,6 +157,7 @@ to {top:150rpx;right:0px;}
 .button view{
   border-radius: 10rpx;
   margin: 20rpx auto;
+  font-size: 28rpx;
 }
 .foot .color{
   color: #4f8fe7;
