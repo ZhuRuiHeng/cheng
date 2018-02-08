@@ -155,7 +155,7 @@ Page({
                           if (result.status == 1 && result.question_list) {
                             wx.setStorageSync('question_list', result.question_list)
                             wx.navigateTo({
-                              url: '../run/run?question_list=' + result.question_list + '&otherImg=' + that.data.otherImg1 + '&otherName=' + that.data.otherName1 + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName,
+                              url: '../run/run?question_list=' + result.question_list + '&otherImg=' + that.data.otherImg1 + '&otherName=' + that.data.otherName1 + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName + '&room_id=' + that.data.room_id,
                             })
                           }
                           if (result.status == 0) {

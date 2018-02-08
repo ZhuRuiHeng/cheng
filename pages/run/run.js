@@ -37,7 +37,8 @@ Page({
         houseImg: options.houseImg,
         houseName: options.houseName,
         otherImg: options.otherImg,
-        otherName: options.otherName
+        otherName: options.otherName,
+        room_id: options.room_id
       })
   },
   onReady: function () {
@@ -132,11 +133,12 @@ Page({
       console.log(typeof (huida.toString()));
       // 答题
       wx.request({
-        url: app.data.apiurl + "guessmc/friend-answer?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+        url: app.data.apiurl + "guessipk/friend-answer?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
         data: {
           num: that.data.num,
           answer: huida.toString(),
-          guess_type: 'idiom'
+          guess_type: 'idiom',
+          room_id: that.data.room_id
         },
         header: {
           'content-type': 'application/json'
@@ -185,11 +187,12 @@ Page({
       console.log(typeof (huida.toString()));
       // 答题
       wx.request({
-        url: app.data.apiurl + "guessmc/friend-answer?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+        url: app.data.apiurl + "guessipk/friend-answer?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
         data: {
           num: that.data.num,
           answer: huida.toString(),
           guess_type: 'idiom',
+          room_id: that.data.room_id
         },
         header: {
           'content-type': 'application/json'
