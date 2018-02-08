@@ -82,7 +82,7 @@ Page({
             if (!socketOpen) {
              
               wx.connectSocket({
-                url: 'ws://139.199.67.245:9461'
+                url: 'ws://friend-guess.playonwechat.com:9461'
               })
               console.log(11111);
               wx.onSocketOpen(function (ress) {
@@ -135,6 +135,9 @@ Page({
                           console.log(result);
                           console.log(result.status);
                           if (result.status == 2) {
+                            that.setData({  //双方进去房间
+                              comeIn: true
+                            })
                             console.log(result.member_info);
                             if (result.member_info[0].mid == wx.getStorageSync('mid')) {  //myself
                               that.setData({
@@ -159,7 +162,10 @@ Page({
                             })
                           }
                           if (result.status == 0) {
-                            tips.alert(result.msg)
+                            tips.alert(result.msg);
+                            that.setData({
+                              bg: true
+                            })
                           }
                         })
                       }
@@ -258,7 +264,8 @@ Page({
       console.log('WebSocket 已关闭！')
       wx.hideToast()
       that.setData({
-        socketOpen: false
+        socketOpen: false,
+        bg:true
       })
     })
   },
@@ -279,8 +286,14 @@ Page({
     wx.onSocketClose(function (res) {
       console.log('WebSocket 已关闭！')
     })
-    wx.redirectTo({
+    wx.reLaunch({
       url: '../indexs/indexs',
+    })
+  },
+  // 等待
+  waitTap() {
+    this.setData({
+      bg: false
     })
   }
 })

@@ -41,7 +41,7 @@ Page({
         var keyword = res.data.data;
         
           wx.connectSocket({
-            url: 'ws://139.199.67.245:9461'
+            url: 'ws://friend-guess.playonwechat.com:9461'
           })
           console.log(11111);
           // that.caozuo(that.data.key);
@@ -127,8 +127,12 @@ Page({
                             wx.setStorageSync('otherName', result.member_info[1].avatarurl);
                             wx.setStorageSync('otherImg', result.member_info[1].wx_name);
                         }
-                      } else if (result.status == 0){
-                        tips.alert(result.msg)
+                      } 
+                      if (result.status == 0){
+                        tips.alert(result.msg);
+                        that.setData({
+                          bg:true
+                        })
                       }
                     })
                   }
@@ -272,7 +276,8 @@ Page({
       console.log('WebSocket 已关闭！')
       wx.hideToast()
       that.setData({
-        socketOpen: false
+        socketOpen: false,
+        bg:true
       })
     })
   },
@@ -292,8 +297,14 @@ Page({
     wx.onSocketClose(function (res) {
       console.log('WebSocket 已关闭！')
     })
-    wx.redirectTo({
+    wx.reLaunch({
       url: '../indexs/indexs',
+    })
+  },
+  // 等待
+  waitTap(){
+    this.setData({
+      bg:false
     })
   }
 

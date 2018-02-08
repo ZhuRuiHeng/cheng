@@ -11,7 +11,8 @@
     "pages/show/show",
     "pages/star/star",
     "pages/wait/wait",
-    "pages/waita/waita"
+    "pages/waita/waita",
+    "pages/paiwei/paiwei"
   ],
   "window":{
     "backgroundTextStyle":"light",

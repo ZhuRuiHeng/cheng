@@ -247,7 +247,7 @@ Page({
   // 银行
   bankTap(){
     let that = this;
-    if(that.data.time==0){
+    if (that.data.time =='0分0秒'){
       that.setData({
         bank: true
       })

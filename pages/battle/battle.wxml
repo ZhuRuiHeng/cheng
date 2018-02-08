@@ -12,3 +12,10 @@
         </view>
       </view>
 </view>
+<view class='bg' wx:if="{{bg}}">
+    <view class='zindex'>
+        <view class='title'>未匹配到对手</view>
+        <view class='item one' bindtap='waitTap'>继续挑战</view>
+        <view class='item' bindtap='outTap'>退出</view>
+    </view>
+</view>

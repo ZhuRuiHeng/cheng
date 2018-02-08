@@ -81,6 +81,12 @@
 					"name": "进行中",
 					"pathName": "pages/run/run",
 					"query": "room_id=174680"
+				},
+				{
+					"id": -1,
+					"name": "排位赛",
+					"pathName": "pages/paiwei/paiwei",
+					"query": ""
 				}
 			]
 		}

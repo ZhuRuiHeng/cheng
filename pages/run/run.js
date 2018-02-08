@@ -29,7 +29,7 @@ Page({
         notice: false
       }
     ],
-    num:1 //题目
+    title:1 //题目
   },
   onLoad: function (options) {
     console.log('options:', options);
@@ -46,18 +46,20 @@ Page({
   },
   onShow: function () {
     let that = this;
-    let num = that.data.num;
+    let title = that.data.title;
     let second = that.data.second;
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
       question_list: wx.getStorageSync('question_list')
     })
     let question_list = wx.getStorageSync('question_list');
-    console.log("question_list:", question_list[num-1]);
-    var option = question_list[num - 1].option.split(',');
+    console.log("question_list:", question_list[title-1]);
+    console.log("num:", question_list[title - 1].num);
+    var option = question_list[title - 1].option;
     that.setData({
-      question_list: question_list[num - 1],
-      option: question_list[num - 1].option.split(',')
+      question_list: question_list[title - 1],
+      option: question_list[title - 1].option,
+      num: question_list[title - 1].num
     })
     // 
     // var inter = setInterval(function () {
@@ -200,38 +202,80 @@ Page({
         method: "GET",
         success: function (res) {
           console.log("回答:", res);
+          wx.onSocketOpen(function (ress) {
+            that.setData({
+              socketOpen: true
+            })
+            console.log('ress:', ress);
+            console.log('WebSocket连接已打开111！');
+            console.log('已登录发起请求');
+          })
+          wx.onSocketError(function (res) {
+            socketOpen = false
+            console.log('WebSocket连接打开失败，请检查！')
+            that.setData({
+              socketOpen: false
+            })
+            wx.hideToast()
+          })
+
           var status = res.data.status;
           if (status == 1) {
             let keyword = res.data.data;
             that.sendSocketMessage(keyword);
+            console.log('是否发送keyword:', keyword);
             wx.onSocketMessage(function (res) {
               console.log('收到服务器内容：' + res.data);
               let result = JSON.parse(res.data);
               console.log(result);
-              console.log(result.status);
-              if (result.status == 2) {
-                that.setData({  //双方进去房间
-                  comeIn: true
-                })
-              } 
+              console.log(result.num);
               if (result.status == 0) {
+                that.setData({
+                  notice:true
+                })
                 tips.alert(result.msg)
               }
-              if (result.status == 1){
-                let num = that.data.num;
+              if (result.num){
+                that.setData({  //回答反馈
+                  inform: result
+                })
+                
+                let title = that.data.title+1;
                 tips.alert(result.msg);
                 that.setData({
-                  num: num + 1,
+                  title: title,
                   click:0
                 })
                 let question_list = wx.getStorageSync('question_list');
-                console.log("question_list:", question_list[num - 1]);
-                var option = question_list[num - 1].option.split(',');
+                console.log("question_list:", question_list[title - 1]);
+                var option = question_list[title - 1].option;
                 that.setData({
-                  question_list: question_list[num - 1],
-                  option: question_list[num - 1].option.split(',')
+                  question_list: question_list[title - 1],
+                  option: question_list[title - 1].option,
+                  num: question_list[title - 1].num,
+                  answer: [
+                    {
+                      text: 0,
+                      askindex: -1,
+                      notice: false
+                    },
+                    {
+                      text: 0,
+                      askindex: -1,
+                      notice: false
+                    },
+                    {
+                      text: 0,
+                      askindex: -1,
+                      notice: false
+                    },
+                    {
+                      text: 0,
+                      askindex: -1,
+                      notice: false
+                    }
+                  ],
                 })
-                
               }
             })
           } else {
@@ -241,7 +285,6 @@ Page({
         }
       })
     }
-
     // 如果点击6次就提交
   },
   // websocket发送消息

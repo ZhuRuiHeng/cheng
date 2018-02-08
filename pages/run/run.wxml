@@ -19,7 +19,7 @@
         <view class='left'></view>
         <view class='right'></view>
     </view>
-    <view class='num'>第{{num}}题</view>
+    <view class='num'>第{{title}}题</view>
     <view class='idiom'>
         <view>四字成语</view>
     </view>
