@@ -1,23 +1,24 @@
 <!--pages/run/run.wxml-->
 <view class="container">
     <view class='header'>
-        <view class='left public'>
+        <view class='left public' data-housemid='{{housemid}}'>
             <view class='leftBg bg'>
                   <image src="{{houseImg}}" mode='widthFix'></image>
             </view>
             <view class='text'>{{houseName}}</view>
         </view>
         <view class='time'>{{second}}</view>
-        <view class='right public'>
+        <view class='right public' data-othermid='{{othermid}}'>
             <view class='rightBg bg'>
                   <image src="{{otherImg}}" mode='widthFix'></image>
             </view>
             <view class='text'>{{otherName}}</view>
         </view>
     </view>
-    <view class='line'>
-        <view class='left'></view>
-        <view class='right'></view>
+ 
+    <view class='line' wx:if="{{line}}">
+        <view class='left' style='width:{{houseWidth}}'></view>
+        <view class='right' style='width:{{otherWidth}}'></view>
     </view>
     <view class='num'>第{{title}}题</view>
     <view class='idiom'>

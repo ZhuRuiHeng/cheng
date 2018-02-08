@@ -108,28 +108,36 @@ Page({
                         })
                         var userInfo = that.data.userInfo;
                        // wx.setStorageSync(key, data);
-                        if (result.member_info[0].mid != wx.getStorageSync('mid')){  //房主 
+                        if (result.member_info[0].mid != wx.getStorageSync('mid')){  //别人 
+                        console.log(111)
                           that.setData({
                             otherImg: result.member_info[0].avatarurl,
                             otherName: result.member_info[0].wx_name,
-                            houseImg: userInfo.avatarUrl,
-                            houseName: userInfo.nickName
+                            othermid: result.member_info[0].mid,
+                            houseImg: result.member_info[1].avatarUrl,
+                            houseName: result.member_info[1].wx_name,
+                            housemid: result.member_info[1].mid
                           })
                           wx.setStorageSync('otherName', result.member_info[0].avatarurl);
                           wx.setStorageSync('otherImg', result.member_info[0].wx_name);
-                        }else { //other别人
+                        }else { //other房主
+                          console.log(222);
+                          console.log(result.member_info[1].mid);
+                          console.log(result.member_info[0].mid);
                             that.setData({
                               otherImg: result.member_info[1].avatarurl,
                               otherName: result.member_info[1].wx_name,
-                              houseImg: userInfo.avatarUrl,
-                              houseName: userInfo.nickName
+                              othermid: result.member_info[1].mid,
+                              houseImg: result.member_info[0].avatarurl,
+                              houseName: result.member_info[0].wx_name,
+                              housemid: result.member_info[0].mid
                             })
                             wx.setStorageSync('otherName', result.member_info[1].avatarurl);
                             wx.setStorageSync('otherImg', result.member_info[1].wx_name);
                         }
                       } 
                       if (result.status == 0){
-                        tips.alert(result.msg);
+                        //tips.alert(result.msg);
                         that.setData({
                           bg:true
                         })
@@ -183,9 +191,10 @@ Page({
               let result = JSON.parse(res.data);
               console.log(result);
               if (result.status == 1) {
-                wx.setStorageSync('question_list', result.question_list)
+                wx.setStorageSync('question_list', result.question_list);
+                console.log('../run/run?otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName + '&room_id=' + wx.getStorageSync('mid') + '&othermid=' + that.data.housemid + '&housemid=' + that.data.housemid);
                 wx.reLaunch({
-                  url: '../run/run?otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName + '&room_id=' + wx.getStorageSync('mid')
+                  url: '../run/run?otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName + '&room_id=' + wx.getStorageSync('mid') + '&othermid=' + that.data.housemid + '&housemid=' + that.data.housemid
                 })
               } else if (result.status == 0) {
                 tips.alert(result.msg)

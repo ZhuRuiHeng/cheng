@@ -53,7 +53,7 @@ to {top:0px;right:0px;}
   position:absolute;
   left: 0;
   top: 150rpx;
-  height:140rpx;
+  height:110rpx;
   background: #4f8fe7;
   text-align: right;
   padding-right: 60rpx;
@@ -67,7 +67,7 @@ to {top:0px;right:0px;}
   position:absolute;
   right: 0;
   top: 150rpx;
-  height:140rpx;
+  height:110rpx;
   background: #f06442;
   text-align: left;
   padding-left: 60rpx;

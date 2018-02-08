@@ -10,11 +10,11 @@ page{
   height: 200rpx;
   position: relative;
 }
-.left{
+.header .left{
    position: absolute;
    animation: myleft 1s;
 }
-.right{
+.header .right{
   position: absolute;
   animation: myright 1s;
   right: 0;
@@ -165,8 +165,10 @@ to {top:20rpx;}
   height: 34rpx;
   border-radius: 20rpx;
   box-sizing: border-box;
+  position: relative;
 }
 .line view{
+  
   display: inline-block;
   width:50%;
   height: 26rpx;
@@ -174,12 +176,16 @@ to {top:20rpx;}
 .line view.left{
   background: #4f8fe7;
   border-radius: 10rpx;
+  position: absolute;
+  top: 0;
   /* border-top-left-radius: 10rpx;
   border-bottom-left-radius: 10rpx; */
 }
 .line view.right{
   background: #f06442;
   border-radius: 10rpx;
+  position: absolute;
+  right: 0;
   /* border-top-right-radius: 10rpx;
   border-bottom-right-radius: 10rpx; */
 }

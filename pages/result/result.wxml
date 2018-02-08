@@ -10,7 +10,7 @@
         <view class='leftInform inform'>
             <view class='text little'>{{userInfo.nickName}}</view>
             <view class='text name'>{{userInfo.gender}}分</view>
-            <view class='text little'>来自：{{userInfo.province}}</view>
+            <!-- <view class='text little'>来自：{{userInfo.province}}</view> -->
         </view> 
         <!--胜利  -->
         <view class='win' wx:if="{{game==true}}">
@@ -25,7 +25,7 @@
         <view class='rightInform inform'>
             <view class='text little'>{{userInfo.nickName}}</view>
             <view class='text name'>{{userInfo.gender}}分</view>
-            <view class='text little'>来自：{{userInfo.province}}</view>
+            <!-- <view class='text little'>来自：{{userInfo.province}}</view> -->
         </view> 
     </view>
     <view class='gift'>

@@ -1,4 +1,5 @@
 // pages/run/run.js
+// 好友结束pk friend-end-pk
 var app = getApp();
 var util = require('../../utils/util.js');
 import tips from '../../utils/tips.js'
@@ -36,16 +37,25 @@ Page({
       this.setData({
         houseImg: options.houseImg,
         houseName: options.houseName,
+        housemid: options.housemid,
         otherImg: options.otherImg,
         otherName: options.otherName,
-        room_id: options.room_id
+        room_id: options.room_id,
+        othermid: options.othermid
       })
+      
   },
   onReady: function () {
 
   },
   onShow: function () {
+    
     let that = this;
+    setTimeout(function () {
+      that.setData({
+        line: true
+      })
+    }, 1000)
     let title = that.data.title;
     let second = that.data.second;
     that.setData({
@@ -62,17 +72,35 @@ Page({
       num: question_list[title - 1].num
     })
     // 
-    // var inter = setInterval(function () {
-    //   if (second <= 1) {
-    //     clearInterval(inter);
-    //   }
-    //   second--;
-    //   console.log(second);
-    //   that.setData({
-    //     second,
-    //     inter
-    //   })
-    // }, 1000)
+    var inter = setInterval(function () {
+      if (second <= 1) {
+        console.log(111);
+        wx.request({
+          url: app.data.apiurl + "guessipk/friend-answer?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
+          data: {
+            num: that.data.num,
+            answer: that.data.huida.toString(),
+            guess_type: 'idiom',
+            room_id: that.data.room_id
+          },
+          header: {
+            'content-type': 'application/json'
+          },
+          method: "GET",
+          success: function (res) {
+            clearInterval(inter);
+            console.log("回答:", res);
+            var status = res.data.status;
+          }
+        })
+      }
+      second--;
+      console.log(second);
+      that.setData({
+        second,
+        inter
+      })
+    }, 1000)
   },
   // 
   backText(e) {
@@ -126,33 +154,6 @@ Page({
     if (text == "") {
       return;
     }
-    if (click == 4) {
-      let huida = [];
-      for (let i = 0; i < answer.length; i++) {
-        huida.push(answer[i].text)
-      }
-      console.log(huida, 'huida:');
-      console.log(typeof (huida.toString()));
-      // 答题
-      wx.request({
-        url: app.data.apiurl + "guessipk/friend-answer?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
-        data: {
-          num: that.data.num,
-          answer: huida.toString(),
-          guess_type: 'idiom',
-          room_id: that.data.room_id
-        },
-        header: {
-          'content-type': 'application/json'
-        },
-        method: "GET",
-        success: function (res) {
-          console.log("回答:", res);
-          var status = res.data.status;
-          
-        }
-      })
-    }
     let both = {};
     click = click + 1;
     console.log("click:", click);
@@ -185,8 +186,12 @@ Page({
       for (let i = 0; i < answer.length; i++) {
         huida.push(answer[i].text)
       }
+      that.setData({
+        huida
+      })
       console.log(huida, 'huida:');
       console.log(typeof (huida.toString()));
+      //retrun;
       // 答题
       wx.request({
         url: app.data.apiurl + "guessipk/friend-answer?sign=" + wx.getStorageSync('sign') + '&operator_id=' + wx.getStorageSync("kid"),
@@ -233,49 +238,67 @@ Page({
                 that.setData({
                   notice:true
                 })
-                tips.alert(result.msg)
+                tips.alert(result.msg);
+                wx.redirectTo({
+                  url: '../result/result',
+                })
               }
               if (result.num){
-                that.setData({  //回答反馈
-                  inform: result
-                })
+                if (result.mid == that.data.room_id){ //房主
+                  let houseInform = result;
+                  that.setData({  //回答反馈
+                    houseInform: result
+                  })
+
+                }else{  //other
+                  let otherInform = result;
+                  that.setData({  //回答反馈
+                    otherInform: result
+                  })
+                }
+                if (that.data.houseInform && that.data.otherInform){
+                  clearInterval(inter);
+                    let title = that.data.title + 1;
+                    tips.alert(result.msg);
+                    that.setData({
+                      title: title,
+                      click: 0
+                    })
+                    let question_list = wx.getStorageSync('question_list');
+                    console.log("question_list:", question_list[title - 1]);
+                    var option = question_list[title - 1].option;
+                    that.setData({
+                      question_list: question_list[title - 1],
+                      option: question_list[title - 1].option,
+                      num: question_list[title - 1].num,
+                      title,
+                      second:20,
+                      answer: [
+                        {
+                          text: 0,
+                          askindex: -1,
+                          notice: false
+                        },
+                        {
+                          text: 0,
+                          askindex: -1,
+                          notice: false
+                        },
+                        {
+                          text: 0,
+                          askindex: -1,
+                          notice: false
+                        },
+                        {
+                          text: 0,
+                          askindex: -1,
+                          notice: false
+                        }
+                      ],
+                    })
+                }
                 
-                let title = that.data.title+1;
-                tips.alert(result.msg);
-                that.setData({
-                  title: title,
-                  click:0
-                })
-                let question_list = wx.getStorageSync('question_list');
-                console.log("question_list:", question_list[title - 1]);
-                var option = question_list[title - 1].option;
-                that.setData({
-                  question_list: question_list[title - 1],
-                  option: question_list[title - 1].option,
-                  num: question_list[title - 1].num,
-                  answer: [
-                    {
-                      text: 0,
-                      askindex: -1,
-                      notice: false
-                    },
-                    {
-                      text: 0,
-                      askindex: -1,
-                      notice: false
-                    },
-                    {
-                      text: 0,
-                      askindex: -1,
-                      notice: false
-                    },
-                    {
-                      text: 0,
-                      askindex: -1,
-                      notice: false
-                    }
-                  ],
-                })
+                
               }
             })
           } else {
@@ -285,7 +308,6 @@ Page({
         }
       })
     }
-    // 如果点击6次就提交
   },
   // websocket发送消息
   sendSocketMessage: function (msg) {

@@ -87,6 +87,12 @@
 					"name": "排位赛",
 					"pathName": "pages/paiwei/paiwei",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "二维码分享",
+					"pathName": "pages/index/index",
+					"query": ""
 				}
 			]
 		}
