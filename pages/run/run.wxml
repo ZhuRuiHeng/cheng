@@ -7,7 +7,7 @@
             </view>
             <view class='text'>{{houseName}}</view>
         </view>
-        <view class='time'>{{second}}</view>
+        <!-- <view class='time'>{{second}}</view> -->
         <view class='right public' data-othermid='{{othermid}}'>
             <view class='rightBg bg'>
                   <image src="{{otherImg}}" mode='widthFix'></image>

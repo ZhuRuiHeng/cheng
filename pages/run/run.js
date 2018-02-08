@@ -533,5 +533,15 @@ Page({
       data: msg
     })
   },
+  // 退出
+  onHide() {
+    wx.closeSocket();
+    wx.onSocketClose(function (res) {
+      console.log('WebSocket 已关闭！')
+    })
+  },
+  onUnload() {
+    wx.closeSocket();
+  }
 
 })
