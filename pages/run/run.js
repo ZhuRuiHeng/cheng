@@ -128,13 +128,14 @@ Page({
                   }
                   if (result.num) {
                     if (result.mid == that.data.room_id) { //房主
+                      console.log('houseInform:', result.mid)
                       let houseInform = result;
                       that.setData({  //回答反馈
                         houseInform: result
                       })
-
                     }
                     if (result.mid != that.data.room_id){  //other
+                      console.log('otherInform:', result.mid)
                       let otherInform = result;
                       that.setData({  //回答反馈
                         otherInform: result
@@ -464,14 +465,11 @@ Page({
                 console.log(that.data.houseInform , that.data.otherInform);
                 if (that.data.houseInform && that.data.otherInform){
                   console.log('二者都有')
-                  clearInterval(inter);
+                  //clearInterval(inter);
                   
                     let title = that.data.title + 1;
-                    if (title >= 5) {
-                        wx.reLaunch({
-                          url: '../result/result?room_id=' + that.data.room_id
-                        })
-                    }
+                    console.log(that.data.room_id, 'room_id');
+                   
                     tips.alert(result.msg);
                     that.setData({
                       title: title,
@@ -511,6 +509,11 @@ Page({
                         }
                       ],
                     })
+                    if (title >= 5) {
+                      wx.reLaunch({
+                        url: '../result/result?room_id=' + that.data.room_id
+                      })
+                    }
                 }
                 
                 

@@ -41,7 +41,7 @@ Page({
         var keyword = res.data.data;
         
           wx.connectSocket({
-            url: 'ws://friend-guess.playonwechat.com:9461'
+            url: 'wss://friend-guess.playonwechat.com/ws'
           })
           console.log(11111);
           // that.caozuo(that.data.key);
@@ -192,9 +192,9 @@ Page({
               console.log(result);
               if (result.status == 1) {
                 wx.setStorageSync('question_list', result.question_list);
-                console.log('../run/run?otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName + '&room_id=' + wx.getStorageSync('mid') + '&othermid=' + that.data.housemid + '&housemid=' + that.data.housemid);
+                console.log('../run/run?otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName + '&room_id=' + wx.getStorageSync('mid') + '&othermid=' + that.data.othermid + '&housemid=' + that.data.housemid);
                 wx.reLaunch({
-                  url: '../run/run?otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName + '&room_id=' + wx.getStorageSync('mid') + '&othermid=' + that.data.housemid + '&housemid=' + that.data.housemid
+                  url: '../run/run?otherImg=' + that.data.otherImg + '&otherName=' + that.data.otherName + '&houseImg=' + that.data.houseImg + '&houseName=' + that.data.houseName + '&room_id=' + wx.getStorageSync('mid') + '&othermid=' + that.data.othermid + '&housemid=' + that.data.housemid
                 })
               } else if (result.status == 0) {
                 tips.alert(result.msg)

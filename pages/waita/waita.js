@@ -82,7 +82,7 @@ Page({
             if (!socketOpen) {
              
               wx.connectSocket({
-                url: 'ws://friend-guess.playonwechat.com:9461'
+                url: 'wss://friend-guess.playonwechat.com/ws'
               })
               console.log(11111);
               wx.onSocketOpen(function (ress) {

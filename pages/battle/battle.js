@@ -39,7 +39,7 @@ Page({
           var keyword = res.data.data;
 
           wx.connectSocket({
-            url: 'ws://friend-guess.playonwechat.com:9461'
+            url: 'wss://friend-guess.playonwechat.com/ws'
           })
           console.log(11111);
           // that.caozuo(that.data.key);

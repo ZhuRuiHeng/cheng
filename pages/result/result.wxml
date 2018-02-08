@@ -49,7 +49,7 @@
             <view class='out'>
               <form report-submit="true" bindsubmit="formSubmit" class="formSubmit" >
                   <button formType="submit" class="submit" style='border-radius:0'>
-                      <button open-type='share'>分享结果</button>
+                      <button bindtap='resultTap'>分享结果</button>
                   </button>
               </form>
             </view>

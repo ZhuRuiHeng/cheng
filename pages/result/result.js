@@ -12,6 +12,7 @@ Page({
     })
   },
   onReady: function (options) {
+    console.log('options', options);
       this.setData({
         room_id: options.room_id
       })
@@ -101,5 +102,11 @@ Page({
       }
     }
   },
+  // show
+  resultTap(){
+      wx.reLaunch({
+        url: '../show/show',
+      })
+  }
 
 })
